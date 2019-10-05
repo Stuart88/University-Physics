@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+
 
 namespace UniversityPhysics.Helpers
 {
     public static class ExtensionMethods
     {
-        public static Int64 ConvertUp(this Int64 val)
+        public static double DecimalPoints(this double d, int points)
         {
-            return val * (Int64)Math.Pow(1, 34);
-        }
-        public static decimal ConvertBack(this Int64 val)
-        {
-            return (decimal)val * (decimal)Math.Pow(1, -34);
-        }
-    }
+            double scale = Math.Pow(10, points);
+            d = d * scale;
+            d = Math.Round(d);
 
+            return d / scale;
+
+        }  
+    }
 }

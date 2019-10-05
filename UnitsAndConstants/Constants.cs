@@ -123,6 +123,19 @@ namespace UniversityPhysics.UnitsAndConstants
         /// </summary>
         public static double b = 2.898E-3;
 
+        //Solar System
+        public static class AstrophysicalConstants
+        {
+            /// <summary>
+            /// Astronomical Unit
+            /// </summary>
+            public static double AU = 149.6E9;
+            public static double Sun_Mass = 1.989E30;
+            public static double Sun_Radius = 6.957E8;
+            public static double Earth_Mass = 5.9723E24;
+            public static double Earth_Radius = 6.371E6;
+        }
+       
 
     }
 }
