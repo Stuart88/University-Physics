@@ -14,10 +14,15 @@ namespace UniversityPhysics.Mechanics
             return startVelocity + acceleration * time;
         }
 
+        /// <summary>
+        /// Finds the centre of mass of an array of Physics objects
+        /// </summary>
+        /// <param name="objects"></param>
+        /// <returns></returns>
         public static Vector CentreOfMass(this PhysicsObjectBase[] objects)
         {
             double totalMass = objects.Sum(x => x.Mass);
-            
+
             if (totalMass <= 0)
                 throw new Exception("Objects must have real mass!");
 
@@ -28,6 +33,11 @@ namespace UniversityPhysics.Mechanics
             return new Vector(centreOfMassX, centreOfMassY, centreOfMassZ);
         }
 
+        /// <summary>
+        /// Finds the centre of mass of a List of Physics objects
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static Vector CentreOfMass(this List<Particle> p)
         {
             double totalMass = p.Sum(x => x.Mass);
@@ -42,6 +52,6 @@ namespace UniversityPhysics.Mechanics
             return new Vector(centreOfMassX, centreOfMassY, centreOfMassZ);
         }
 
-
+        
     }
 }
