@@ -95,27 +95,27 @@ namespace UniversityPhysics.Maths
         }
         public static Vector operator *(Vector a, int b)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator *(Vector a, double b)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator *(Vector a, float b)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator *(int b, Vector a)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator *(double b, Vector a)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator *(float b, Vector a)
         {
-            return new Vector(a.X * b, a.Y * b);
+            return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
         public static Vector operator /(Vector a, int b)
         {

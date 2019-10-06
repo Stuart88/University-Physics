@@ -9,10 +9,7 @@ namespace UniversityPhysics.Mechanics
 {
     public static class BasicMechanics
     {
-        public static Vector Accelerate(this Vector startVelocity, Vector acceleration, double time)
-        {
-            return startVelocity + acceleration * time;
-        }
+        
 
         /// <summary>
         /// Finds the centre of mass of an array of Physics objects

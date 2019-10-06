@@ -8,7 +8,10 @@ namespace UniversityPhysics.PhysicsObjects
 {
     public class Particle: PhysicsObjectBase
     {
-        public Particle() { }
+        public Particle(double mass)
+        {
+            Mass = mass;
+        }
         public Particle(Vector position, double mass)
         {
             Position = position;
