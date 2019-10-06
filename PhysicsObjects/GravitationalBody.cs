@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UniversityPhysics.Vectors;
+using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.PhysicsObjects
 {
     public class GravitationalBody : PhysicsObjectBase
     {
-        public GravitationalBody(double radius, double mass, Vector postion)
+        public GravitationalBody(double radius, double mass, Vector position)
         {
             Radius = radius;
             Mass = mass;
-            Position = postion;
+            Position = position;
         }
         public double Radius { get; set; }
         public double GravityAtSurface => UnitsAndConstants.Constants.G * Mass / (Radius * Radius);
@@ -31,9 +31,12 @@ namespace UniversityPhysics.PhysicsObjects
                 throw new Exception("Bodies must not be connected!");
 
             Vector direction = b.Position - this.Position;
-            direction.NormaliseSelf();
 
-            return direction * UnitsAndConstants.Constants.G * this.Mass * b.Mass / (direction.Abs() * direction.Abs());
+            double r_squared = direction.Abs() * direction.Abs();
+
+            var x = direction.Abs() * direction.Abs();
+
+            return direction.Normalised() * UnitsAndConstants.Constants.G * this.Mass * b.Mass / r_squared;
         }
     }
 }

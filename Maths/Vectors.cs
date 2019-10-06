@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniversityPhysics.Vectors
+namespace UniversityPhysics.Maths
 {
     public enum AngleType 
     {
@@ -56,13 +56,12 @@ namespace UniversityPhysics.Vectors
             X /= abs;
             Y /= abs;
             Z /= abs;
+
         }
 
         public Vector Normalised()
         {
-            double abs = this.Abs();
-
-            return new Vector(X / abs, Y / abs, Z / abs);
+            return this / this.Abs();
         }
 
         public double AngleBetween(Vector v, AngleType angleType = AngleType.Radians)
@@ -120,15 +119,24 @@ namespace UniversityPhysics.Vectors
         }
         public static Vector operator /(Vector a, int b)
         {
-            return new Vector(a.X / b, a.Y / b, a.Z == 0 ? 0 : a.Z / b);
+            if (b == 0)
+                throw new DivideByZeroException();
+
+            return new Vector(a.X / b, a.Y / b, a.Z / b);
         }
         public static Vector operator /(Vector a, double b)
         {
-            return new Vector(a.X / b, a.Y / b, a.Z == 0 ? 0 : a.Z / b);
+            if (b == 0)
+                throw new DivideByZeroException();
+
+            return new Vector(a.X / b, a.Y / b,  a.Z / b);
         }
         public static Vector operator /(Vector a, float b)
         {
-            return new Vector(a.X / b, a.Y / b, a.Z == 0 ? 0 : a.Z / b);
+            if (b == 0)
+                throw new DivideByZeroException();
+
+            return new Vector(a.X / b, a.Y / b, a.Z / b);
         }
         public static bool operator ==(Vector a, Vector b)
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UniversityPhysics.Vectors;
+using UniversityPhysics.Maths;
 using System.Linq;
 using UniversityPhysics.PhysicsObjects;
 
