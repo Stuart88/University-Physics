@@ -10,10 +10,15 @@ namespace UniversityPhysics.PhysicsObjects
     {
         public Particle(double mass)
         {
+            if (mass == 0)
+                throw new Exception("Cannot be massless!");
             Mass = mass;
         }
-        public Particle(Vector position, double mass)
+        public Particle(Vector position, double mass): base ()
         {
+            if (mass == 0)
+                throw new Exception("Cannot be massless!");
+
             Position = position;
             Mass = mass;
         }

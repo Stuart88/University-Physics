@@ -58,5 +58,24 @@ namespace UniversityPhysics.PhysicsObjects
         {
             Acceleration += (force / Mass);
         }
+
+        public override string ToString()
+        {
+            string[] properties = new string[]
+            {
+                string.Format("{0} ---------- {1} ( kg )",  "Mass", Mass),
+                string.Format("{0} ---------- {1}",  "Positions", Position),
+                string.Format("{0} ---------- {1} ( m/s )",  "Velocity", Velocity),
+                string.Format("{0} ---------- {1} ( kg m/s )",  "Momentum", Momentum),
+                string.Format("{0} ---------- {1} ( m/s^2 )",  "Acceleration", Acceleration),
+                string.Format("{0} ---------- {1} ( As )",  "Charge", Charge),
+                string.Format("{0} ---------- {1} ( J )",  "Kinetic Energy", KineticEnergy),
+                string.Format("{0} ---------- {1} ( J )",  "Total Kinetic Energy", TotalEnergy),
+            };
+
+            return string.Join('\n',properties);
+        }
+
+
     }
 }

@@ -15,7 +15,7 @@ namespace UniversityPhysics.UnitsAndConstants
         public static readonly BaseUnit Temperature = new BaseUnit("kelvin", "K");
         public static readonly BaseUnit AmountOfSubstance = new BaseUnit("mole", "mol");
         public static readonly BaseUnit Luminosity = new BaseUnit("candela", "cd");
-        
+
         public static readonly DerivedUnit Area = new DerivedUnit("square metre", "A", new List<BaseUnit>() { Length, Length }, new List<BaseUnit>());
         public static readonly DerivedUnit Volume = new DerivedUnit("cubic metre", "V", new List<BaseUnit>() { Length, Length, Length }, new List<BaseUnit>());
         public static readonly DerivedUnit Velocity = new DerivedUnit("metres per second", "V", new List<BaseUnit>() { Length }, new List<BaseUnit>() { Time });
@@ -26,6 +26,7 @@ namespace UniversityPhysics.UnitsAndConstants
         public static readonly DerivedUnit MagneticFieldStrength = new DerivedUnit("amps per square metre", "H", new List<BaseUnit>() { Current }, new List<BaseUnit>() { Length});
         public static readonly DerivedUnit Concentration = new DerivedUnit("amount of substance per metre cubed", "Concentration" , new List<BaseUnit>() { AmountOfSubstance }, new List<BaseUnit>() { Length, Length , Length });
         public static readonly DerivedUnit Luminance = new DerivedUnit("luminosity", "Luminance", new List<BaseUnit>() { Luminosity }, new List<BaseUnit>() { Length, Length});
+        public static readonly DerivedUnit Coulomb = new DerivedUnit("coulomb", "coulomb", new List<BaseUnit>() { Current }, new List<BaseUnit>() { Time });
 
 
         public class DerivedUnit
