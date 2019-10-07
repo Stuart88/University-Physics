@@ -3,33 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UniversityPhysics.Maths;
 using UniversityPhysics.PhysicsObjects;
+using UniversityPhysics.UnitsAndConstants;
+using static UniversityPhysics.UnitsAndConstants.Constants;
 
 namespace UniversityPhysics.Astrophysics
 {
     public static class BasicAstrophysics
     {
-        /// <summary>
-        /// Calculates the gravitational force that exists between this body and another gravitational body.
-        /// Force is directed toward this body, i.e. if the other body has higher gravitational strength, 
-        /// the force will be negative (directed away from this body)
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static Vector GravitationalForceOn(this GravitationalBody _this, GravitationalBody b)
+        public static GravitationalBody Earth = new GravitationalBody()
         {
-            double distance = Math.Abs(_this.Position.Abs() - b.Position.Abs());
+            Mass = AstrophysicalConstants.Earth_Mass,
+            Radius = AstrophysicalConstants.Earth_Radius,
+            Charge = 0,
+            Rotation = new Vector(0, 0, 7.292E-5),
+        };
 
-            if (distance < _this.Radius || distance < b.Radius)
-                throw new Exception("Bodies must not be connected!");
+        public static GravitationalBody Sol = new GravitationalBody()
+        {
+            Mass = AstrophysicalConstants.Sun_Mass,
+            Radius = AstrophysicalConstants.Sun_Radius,
+            Charge = 0,
+            Rotation = MathsHelpers.DayLengthToRotation(AstrophysicalConstants.Sun_Radius, 25.38, Enums.TimeMeasure.Day)
+        };
 
-            Vector direction = b.Position - _this.Position;
 
-            double r_squared = direction.Abs() * direction.Abs();
-
-            var x = direction.Abs() * direction.Abs();
-
-            return direction.Normalised() * UnitsAndConstants.Constants.G * _this.Mass * b.Mass / r_squared;
-        }
 
     }
 }

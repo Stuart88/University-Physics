@@ -16,15 +16,17 @@ namespace UniversityPhysics.Maths
         Vector Cross(Vector v);
         void NormaliseSelf();
         Vector Normalised();
-
-        //double AngleBetween(Vector v, AngleType angleType = AngleType.Radians);
     }
 
     public class Vector : IVector
     {
+        //Properties
+
         public double X { get; set; } = 0d;
         public double Y { get; set; } = 0d;
         public double Z { get; set; } = 0d;
+
+        //Constructors 
 
         public Vector() { }
         public Vector(double x, double y)
@@ -39,6 +41,8 @@ namespace UniversityPhysics.Maths
             this.Y = y;
             this.Z = z;
         }
+
+        //Methods
 
         public double Dot(Vector v)
         {
@@ -73,7 +77,12 @@ namespace UniversityPhysics.Maths
                 : angleRads * 180d / Math.PI;
         }
 
-        //Operator overloads
+        public double Abs()
+        {
+            return Math.Sqrt(X * X + Y * Y + Z * Z);
+        }
+
+        //Operators
 
         public static Vector operator +(Vector a, Vector b)
         {
@@ -151,11 +160,8 @@ namespace UniversityPhysics.Maths
                 || !WithinTolerance(a.Z, b.Z);
         }
             
-        private const double tolerance = 0.0000001;
-        private static bool WithinTolerance(double a, double b)
-        {
-            return Math.Abs(a - b) <= tolerance;
-        }
+        //Overrides
+        
         public override bool Equals(object obj)
         {
             if (obj.GetType() != typeof(Vector))
@@ -178,9 +184,16 @@ namespace UniversityPhysics.Maths
             return string.Format("X: {0}, Y: {1}, Z: {2}", X, Y, Z);
         }
 
-        public double Abs()
+
+        //Private
+
+        /// <summary>
+        /// For vector comparison. Necessary for avoiding floating point accurary errors
+        /// </summary>
+        private const double tolerance = 0.0000001;
+        private static bool WithinTolerance(double a, double b)
         {
-            return Math.Sqrt(X * X + Y * Y + Z * Z);
+            return Math.Abs(a - b) <= tolerance;
         }
     }
 
