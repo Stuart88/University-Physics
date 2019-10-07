@@ -6,6 +6,8 @@ namespace UniversityPhysics.UnitsAndConstants
 {
     public static class Constants
     {
+        public const double StandardGravity = 9.81;
+
         /// <summary>
         /// Planck Constant
         /// </summary>

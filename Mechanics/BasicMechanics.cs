@@ -35,7 +35,7 @@ namespace UniversityPhysics.Mechanics
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Vector CentreOfMass(this List<Particle> p)
+        public static Vector CentreOfMass<T>(this List<T> p) where T : PhysicsObjectBase
         {
             double totalMass = p.Sum(x => x.Mass);
 

@@ -7,7 +7,7 @@ using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.PhysicsObjects
 {
-    public abstract class PhysicsObjectBase
+    public abstract class PhysicsObjectBase 
     {
        
         //Properties
