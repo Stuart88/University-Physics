@@ -4,28 +4,25 @@ using System.Text;
 using UniversityPhysics.Maths;
 using UniversityPhysics.UnitsAndConstants;
 using UniversityPhysics.Enums;
+using UniversityPhysics.PhysicsObjects;
 
-namespace UniversityPhysics.PhysicsObjects
+namespace UniversityPhysics.Astrophysics
 {
     public class GravitationalBody : PhysicsObjectBase
     {
-        public GravitationalBody() { }
-        public GravitationalBody(double radius, double mass, Vector position)
+        public GravitationalBody(double radius, double mass)
         {
             Radius = radius;
             Mass = mass;
-            Position = position;
         }
 
         public double Radius { get; set; }
+        public double EscapeVelocity => Math.Sqrt(2 * Constants.G * Mass / Radius);
+        public double GravityAtSurface => Constants.G * Mass / (Radius * Radius);
 
 
         //Methods
 
-        public double EscapeVelocity => Math.Sqrt(2 * Constants.G * Mass / Radius);
-
-        public double GravityAtSurface => Constants.G * Mass / (Radius * Radius);
-        
         /// <summary>
         /// Calculates the gravitational force that exists between this body and another gravitational body.
         /// </summary>
@@ -53,7 +50,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="orbitRadius">Distance from centre of gravitational body</param>
         /// <param name="timeMeasure">Desired time measure for returned value</param>
         /// <returns>Orbit period time</returns>
-        public double OrbitPeriodAtDistance(double orbitRadius, TimeMeasure timeMeasure = TimeMeasure.Day)
+        public double OrbitPeriodAtDistance(double orbitRadius, TimeMeasure timeMeasure = TimeMeasure.Second)
         {
             double periodInSeconds = Math.Sqrt(Math.Pow(orbitRadius, 3) * (4 * Math.Pow(Math.PI, 2)) / (Constants.G * Mass));
 
