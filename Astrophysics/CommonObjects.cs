@@ -8,7 +8,7 @@ using static UniversityPhysics.UnitsAndConstants.Constants;
 
 namespace UniversityPhysics.Astrophysics
 {
-    public static class BasicAstrophysics
+    public static class CommonObjects
     {
         public static GravitationalBody Earth = new GravitationalBody()
         {
