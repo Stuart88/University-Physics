@@ -1,10 +1,10 @@
 # University-Physics
 
-University Physics is a C# library for performing physics calculations of all kinds. It's mainly for my own enjoyment, 
-but will probably be useful for things like games, simulators, education and simple research tasks.
+University Physics is a C# library for performing physics calculations of all kinds. The project is in its early stages, 
+but once ready it will probably be useful for things like games, simulators, education and simple research tasks.
 
-At first I intend to work through the classic [University Physics](https://www.amazon.com/University-Physics-Modern-15th/dp/0135159555) 
-text book, turning the equations and examples contained in the book  into usable classes and methods for generating quick 
+Most of the work will be based on the classic [University Physics](https://www.amazon.com/University-Physics-Modern-15th/dp/0135159555) 
+text book, turning the equations and examples contained in the book into usable classes and methods for generating quick 
 answers to problems.
 
 Please check the [documentation](https://github.com/Stuart88/University-Physics/wiki) for details and implementations.
@@ -35,7 +35,7 @@ For example:
 `position: Vector(1,0,0)` = 1m in the x-direction on Cartesian axes
 
 
-After I've worked through University Physics, I'll shift over to more advanced topics that I covered later during my own degree studies.
+After most content from the University Physics textbook has been covered, more advanced physics topics will be introduced. 
 
 ## Main Topics
 - Maths
