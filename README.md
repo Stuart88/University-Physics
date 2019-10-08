@@ -38,8 +38,8 @@ For example:
 After I've worked through University Physics, I'll shift over to more advanced topics that I covered later during my own degree studies.
 
 ## Main Topics
-- [Vectors](https://github.com/Stuart88/University-Physics/wiki/Vectors)
-- [Mechanics](https://github.com/Stuart88/University-Physics/wiki/Mechanics)
+- Maths
+- Mechanics
 - Electromagnetism
 - Waves
 - Thermodynamics
