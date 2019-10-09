@@ -9,6 +9,15 @@ namespace UniversityPhysics.Maths
     public static class MathsHelpers
     {
         /// <summary>
+        /// For value comparison. Necessary for avoiding floating point accurary errors
+        /// </summary>
+        private const double tolerance = 0.0000001;
+        public static bool WithinTolerance(double a, double b)
+        {
+            return Math.Abs(a - b) <= tolerance;
+        }
+
+        /// <summary>
         /// Calculates the distance between two physical objects
         /// </summary>
         /// <returns></returns>

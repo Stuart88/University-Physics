@@ -1,4 +1,5 @@
 ﻿using System;
+using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.Maths
 {
@@ -149,15 +150,15 @@ namespace UniversityPhysics.Maths
         }
         public static bool operator ==(Vector a, Vector b)
         {
-            return WithinTolerance(a.X, b.X) 
-                && WithinTolerance(a.Y,b.Y) 
-                && WithinTolerance(a.Z, b.Z);
+            return MathsHelpers.WithinTolerance(a.X, b.X) 
+                && MathsHelpers.WithinTolerance(a.Y,b.Y) 
+                && MathsHelpers.WithinTolerance(a.Z, b.Z);
         }
         public static bool operator !=(Vector a, Vector b)
         {
-            return !WithinTolerance(a.X, b.X)
-                || !WithinTolerance(a.Y, b.Y)
-                || !WithinTolerance(a.Z, b.Z);
+            return !MathsHelpers.WithinTolerance(a.X, b.X)
+                || !MathsHelpers.WithinTolerance(a.Y, b.Y)
+                || !MathsHelpers.WithinTolerance(a.Z, b.Z);
         }
             
         //Overrides
@@ -185,16 +186,8 @@ namespace UniversityPhysics.Maths
         }
 
 
-        //Private
 
-        /// <summary>
-        /// For vector comparison. Necessary for avoiding floating point accurary errors
-        /// </summary>
-        private const double tolerance = 0.0000001;
-        private static bool WithinTolerance(double a, double b)
-        {
-            return Math.Abs(a - b) <= tolerance;
-        }
+        
     }
 
     
