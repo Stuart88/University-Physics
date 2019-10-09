@@ -18,9 +18,11 @@ namespace UniversityPhysics.PhysicsObjects
         public Object3D(List<MassPoint> massPoints)
         {
             MassPoints = massPoints;
+            _object3DMass = massPoints.Sum(m => m.Mass);
+            Mass = _object3DMass;
             Position = new Vector();
             _centreOfGravity = SetCentreOfMass();
-            MomentOfInertia = SetMomentOfInertia(massPoints, Position);
+            _momentOfInertia = SetMomentOfInertia(massPoints, Position);
         }
 
         /// <summary>
@@ -30,26 +32,25 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="position">Position of object, aligned to object's centre of mass</param>
         public Object3D(List<MassPoint> massPoints, Vector position)
         {
-            MassPoints = massPoints; // InitaliseMassPoints(massPoints, position);
-            
-            //Then set to user-defined position. Must be done this way to avoid null error in first use of Position setter
+            MassPoints = massPoints;
+            _object3DMass = massPoints.Sum(m => m.Mass);
+            Mass = _object3DMass;
             Position = position;
-
             _centreOfGravity = SetCentreOfMass();
-            MomentOfInertia = SetMomentOfInertia(massPoints, position);
+            _momentOfInertia = SetMomentOfInertia(massPoints, position);
         }
 
         // Fields
-        
+
         private Vector _centreOfGravity = new Vector();
         private Vector _position = new Vector();
 
         // Properties
 
         public List<MassPoint> MassPoints { get; set; }
-        public Vector CentreOfGravity { get { return _centreOfGravity; }  }
+        public Vector CentreOfGravity { get { return _centreOfGravity; } }
         new public Vector Position
-        { 
+        {
             get { return _position; }
             set {
                 Vector diff = new Vector();
@@ -57,7 +58,7 @@ namespace UniversityPhysics.PhysicsObjects
                 {
                     //find difference between old and new position
                     diff = value - _position;
-                    
+
                     //move m by same difference, so it stays aligned.
                     m.Position = m.Position + diff;
                 }
@@ -66,10 +67,11 @@ namespace UniversityPhysics.PhysicsObjects
                 _position = value;
                 //and update _centreOfGravity field.
                 _centreOfGravity = SetCentreOfMass();
-            } 
+            }
         }
-        public Vector MomentOfInertia { get; }
+        new public double Mass { get; }
         
+
         //Public Methods
 
         /// <summary>
@@ -80,12 +82,13 @@ namespace UniversityPhysics.PhysicsObjects
         public void AddForce_OffCentre(Vector force, Vector applicationPoint)
         {
 
-            //Converting force to torque is far more complex than this! Need to redo, calculating for resultant
-            // torque about every axis for X, Y and Z, which is different for every cartesian quadrant
-            //Probably need to draw some diagrams...
+            // hmmm
+            double torqueX = Math.Sign(force.Y) * force.Z;
+            double torqueY = Math.Sign(force.Z) * force.X;
+            double torqueZ = Math.Sign(force.X) * force.Y;
 
 
-            AddTorque(new Vector(force.X * applicationPoint.X, force.Y * applicationPoint.Y, force.Z * applicationPoint.Z));
+            AddTorque(new Vector(torqueX, torqueY, torqueZ));
         }
         /// <summary>
         /// Adds a constant torque to the object using τ = Iα (torque = moment of intertia * angular acceleration)
@@ -99,10 +102,10 @@ namespace UniversityPhysics.PhysicsObjects
 
             RotationalAcceleration += new Vector(aX, aY, aZ);
         }
-       
+
         // Private Methods
 
-        private Vector SetMomentOfInertia(List<MassPoint> massPoints, Vector position) 
+        private Vector SetMomentOfInertia(List<MassPoint> massPoints, Vector position)
         {
             double momentX = 0;
             double momentY = 0;
@@ -122,6 +125,8 @@ namespace UniversityPhysics.PhysicsObjects
 
             return BasicMechanics.CentreOfMass(massPoints);
         }
+
+        
 
     }
 }
