@@ -14,27 +14,13 @@ namespace UniversityPhysics.PhysicsObjects
 
         internal Vector _momentOfInertia = new Vector();
         internal double _object3DMass = 0d;
-        private double _mass = 0d;
 
         //Properties
 
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
-        public double Mass
-        {
-            get { return _mass; }
-            set
-            {
-                if (this is Object3D)
-                    throw new MassSetterException("Set Object3D mass via MassPoints property");
-
-                else
-                {
-                    _mass = value;
-                }
-            }
-        }
+        public double Mass { get; set; } = 0d;
         public double Charge { get; set; } = 0d;
         public Vector MomentOfInertia { get { return _momentOfInertia; } }
         public double TotalEnergy
@@ -51,11 +37,11 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector RotationalAcceleration { get; set; } = new Vector();
         public Vector Momentum
         {
-            get { return Velocity * _mass; }
+            get { return Velocity * Mass; }
         }
         public Vector KineticEnergy_Translational
         {
-            get { return 0.5 * _mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
+            get { return 0.5 * Mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
         }
         public Vector KineticEnergy_Rotational
         {
@@ -88,7 +74,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// </summary>
         public void AddForce_Translational(Vector force)
         {
-            Acceleration += (force / _mass);
+            Acceleration += (force / Mass);
         }
 
         /// <summary>
@@ -156,7 +142,7 @@ namespace UniversityPhysics.PhysicsObjects
         {
             string[] properties = new string[]
             {
-                string.Format("{0} ---------- {1} ( kg )",  "Mass", _mass),
+                string.Format("{0} ---------- {1} ( kg )",  "Mass", Mass),
                 string.Format("{0} ---------- {1}",  "Position", Position),
                 string.Format("{0} ---------- {1} ( m/s )",  "Velocity", Velocity),
                 string.Format("{0} ---------- {1} ( kg m/s )",  "Momentum", Momentum),

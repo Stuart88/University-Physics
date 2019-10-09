@@ -21,7 +21,7 @@ namespace UniversityPhysics.PhysicsObjects
             _object3DMass = massPoints.Sum(m => m.Mass);
             Mass = _object3DMass;
             Position = new Vector();
-            _centreOfGravity = SetCentreOfMass();
+            CentreOfGravity = SetCentreOfMass();
             _momentOfInertia = SetMomentOfInertia(massPoints, Position);
         }
 
@@ -36,19 +36,18 @@ namespace UniversityPhysics.PhysicsObjects
             _object3DMass = massPoints.Sum(m => m.Mass);
             Mass = _object3DMass;
             Position = position;
-            _centreOfGravity = SetCentreOfMass();
+            CentreOfGravity = SetCentreOfMass();
             _momentOfInertia = SetMomentOfInertia(massPoints, position);
         }
 
-        // Fields
+        // Fields 
 
-        private Vector _centreOfGravity = new Vector();
         private Vector _position = new Vector();
 
         // Properties
 
         public List<MassPoint> MassPoints { get; set; }
-        public Vector CentreOfGravity { get { return _centreOfGravity; } }
+        public Vector CentreOfGravity { get; private set; } = new Vector();
         new public Vector Position
         {
             get { return _position; }
@@ -66,7 +65,7 @@ namespace UniversityPhysics.PhysicsObjects
                 //assign new position 
                 _position = value;
                 //and update _centreOfGravity field.
-                _centreOfGravity = SetCentreOfMass();
+                CentreOfGravity = SetCentreOfMass();
             }
         }
         new public double Mass { get; }
