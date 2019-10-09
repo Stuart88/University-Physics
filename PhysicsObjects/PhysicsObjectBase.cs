@@ -37,7 +37,12 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector RotationalAcceleration { get; set; } = new Vector();
         public Vector Momentum
         {
-            get { return Velocity * Mass; }
+            get 
+            {
+                return this is Object3D
+                    ? Velocity * _object3DMass
+                    : Velocity * Mass;
+            }
         }
         public Vector KineticEnergy_Translational
         {
@@ -158,14 +163,4 @@ namespace UniversityPhysics.PhysicsObjects
     }
 
 
-    [Serializable]
-    public class MassSetterException : Exception
-    {
-        public MassSetterException() { }
-        public MassSetterException(string message) : base(message) { }
-        public MassSetterException(string message, Exception inner) : base(message, inner) { }
-        protected MassSetterException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
 }

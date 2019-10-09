@@ -32,4 +32,11 @@ namespace UniversityPhysics.Enums
         Y,
         Z
     }
+
+    public enum TemperatureType
+    {
+        Kelvin,
+        Celsius,
+        Fahrenheit
+    }
 }
