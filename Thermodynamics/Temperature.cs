@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UniversityPhysics.Enums;
+using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.Thermodynamics
 {
@@ -27,19 +28,41 @@ namespace UniversityPhysics.Thermodynamics
             switch (type)
             {
                 case TemperatureType.Kelvin:
-                    Kelvin = temp;
-                    Celsius = KelvinToCelsius(temp);
-                    Fahrenheit = KelvinToFahrenheit(temp);
+                    if (Kelvin < 0)
+                    {
+                        throw new TemperatureException("A temperature this low is not physically possible");
+                    }
+                    else
+                    {
+                        Kelvin = temp;
+                        Celsius = KelvinToCelsius(temp);
+                        Fahrenheit = KelvinToFahrenheit(temp);
+                    }
                     break;
                 case TemperatureType.Celsius:
-                    Kelvin = CelsiusToKelvin(temp);
-                    Celsius = temp;
-                    Fahrenheit = CelsiusToFahrenheit(temp);
+                    if (CelsiusToKelvin(temp) < 0)
+                    {
+                        throw new TemperatureException("A temperature this low is not physically possible");
+                    }
+                    else
+                    {
+                        Kelvin = CelsiusToKelvin(temp);
+                        Celsius = temp;
+                        Fahrenheit = CelsiusToFahrenheit(temp);
+                    }
                     break;
                 case TemperatureType.Fahrenheit:
-                    Kelvin = FahrenheitToKelvin(temp);
-                    Celsius = FahrenheitToCelsius(temp);
-                    Fahrenheit = temp;
+                    if (Kelvin < 0)
+                    {
+                        throw new TemperatureException("A temperature this low is not physically possible");
+                    }
+                    else
+                    {
+                        Kelvin = FahrenheitToKelvin(temp);
+                        Celsius = FahrenheitToCelsius(temp);
+                        Fahrenheit = temp;
+                    }
+
                     break;
             }
         }
@@ -69,6 +92,96 @@ namespace UniversityPhysics.Thermodynamics
         private double KelvinToFahrenheit(double tempK)
         {
             return CelsiusToFahrenheit(KelvinToCelsius(tempK));
+        }
+
+        //Operators
+
+        public static Temperature operator +(Temperature A, Temperature B)
+        {
+            return new Temperature(A.Kelvin + B.Kelvin, TemperatureType.Kelvin);
+        }
+        public static Temperature operator -(Temperature A, Temperature B)
+        {
+            return new Temperature(A.Kelvin - B.Kelvin, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(Temperature A, int x)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(Temperature A, double x)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(Temperature A, float x)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(int x, Temperature A)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(double x, Temperature A)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator *(float x, Temperature A)
+        {
+            return new Temperature(A.Kelvin * x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator /(Temperature A, int x)
+        {
+            return new Temperature(A.Kelvin / x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator /(Temperature A, double x)
+        {
+            return new Temperature(A.Kelvin / x, TemperatureType.Kelvin);
+        }
+        public static Temperature operator /(Temperature A, float x)
+        {
+            return new Temperature(A.Kelvin / x, TemperatureType.Kelvin);
+        }
+        public static bool operator ==(Temperature A, Temperature B)
+        {
+            return MathsHelpers.WithinTolerance(A.Kelvin, B.Kelvin);
+        }
+        public static bool operator !=(Temperature A, Temperature B)
+        {
+            return !MathsHelpers.WithinTolerance(A.Kelvin, B.Kelvin);
+        }
+
+        //Overrides
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(Temperature))
+                return false;
+            else
+            {
+                Temperature t = (obj as Temperature);
+
+                return this == t;
+            }
+
+        }
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+        public override string ToString()
+        {
+            return string.Format("{0}K, {1}C, {2}F", Kelvin, Celsius, Fahrenheit);
+        }
+
+
+        [Serializable]
+        public class TemperatureException : Exception
+        {
+            public TemperatureException() { }
+            public TemperatureException(string message) : base(message) { }
+            public TemperatureException(string message, Exception inner) : base(message, inner) { }
+            protected TemperatureException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
         }
     }
 }
