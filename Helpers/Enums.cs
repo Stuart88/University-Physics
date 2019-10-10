@@ -39,4 +39,12 @@ namespace UniversityPhysics.Enums
         Celsius,
         Fahrenheit
     }
+
+    public enum EnergyMeasure
+    {
+        Joule,
+        eV,
+        MeV,
+        kWh
+    }
 }
