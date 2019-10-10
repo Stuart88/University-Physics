@@ -21,7 +21,7 @@ namespace UniversityPhysics.Mechanics
             double totalMass = objects.Sum(x => x.Mass);
 
             if (totalMass <= 0)
-                throw new Exception("Objects must have real mass!");
+                throw new NegativeMassException("Objects must have real mass!");
 
             double centreOfMassX = objects.Sum(o => o.Mass * o.Position.X) / totalMass;
             double centreOfMassY = objects.Sum(o => o.Mass * o.Position.Y) / totalMass;
@@ -40,7 +40,7 @@ namespace UniversityPhysics.Mechanics
             double totalMass = p.Sum(x => x.Mass);
 
             if (totalMass <= 0)
-                throw new Exception("Objects must have real mass!");
+                throw new NegativeMassException("Objects must have real mass!");
 
             double centreOfMassX = p.Sum(o => o.Mass * o.Position.X) / totalMass;
             double centreOfMassY = p.Sum(o => o.Mass * o.Position.Y) / totalMass;
@@ -49,6 +49,19 @@ namespace UniversityPhysics.Mechanics
             return new Vector(centreOfMassX, centreOfMassY, centreOfMassZ);
         }
 
+        //Exceptions
+
+
+        [Serializable]
+        public class NegativeMassException : Exception
+        {
+            public NegativeMassException() { }
+            public NegativeMassException(string message) : base(message) { }
+            public NegativeMassException(string message, Exception inner) : base(message, inner) { }
+            protected NegativeMassException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        }
         
     }
 }
