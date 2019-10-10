@@ -172,6 +172,18 @@ namespace UniversityPhysics.Thermodynamics
             return string.Format("{0}K, {1}C, {2}F", Kelvin, Celsius, Fahrenheit);
         }
 
+        //Conversions
+
+        /// <summary>
+        /// Implicitly set temperature in Kelvin
+        /// </summary>
+        /// <param name="temp">Temperature in Kelvin</param>
+        public static implicit operator Temperature(double temp)
+        {
+            return new Temperature(temp, TemperatureType.Kelvin);
+        }
+
+        //Exceptions
 
         [Serializable]
         public class TemperatureException : Exception
