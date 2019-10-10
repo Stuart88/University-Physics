@@ -17,8 +17,8 @@ namespace UniversityPhysics.Astrophysics
         }
 
         public double Radius { get; set; }
-        public double EscapeVelocity => Math.Sqrt(2 * Constants.G * Mass / Radius);
-        public double GravityAtSurface => Constants.G * Mass / (Radius * Radius);
+        public double EscapeVelocity => Math.Sqrt(2 * Constants.Common.G * Mass / Radius);
+        public double GravityAtSurface => Constants.Common.G * Mass / (Radius * Radius);
 
 
         //Methods
@@ -41,7 +41,7 @@ namespace UniversityPhysics.Astrophysics
 
             var x = direction.Abs() * direction.Abs();
 
-            return direction.Normalised() * Constants.G * Mass * b.Mass / r_squared;
+            return direction.Normalised() * Constants.Common.G * Mass * b.Mass / r_squared;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace UniversityPhysics.Astrophysics
         /// <returns>Orbit period time</returns>
         public double OrbitPeriodAtDistance(double orbitRadius, TimeMeasure timeMeasure = TimeMeasure.Second)
         {
-            double periodInSeconds = Math.Sqrt(Math.Pow(orbitRadius, 3) * (4 * Math.Pow(Math.PI, 2)) / (Constants.G * Mass));
+            double periodInSeconds = Math.Sqrt(Math.Pow(orbitRadius, 3) * (4 * Math.Pow(Math.PI, 2)) / (Constants.Common.G * Mass));
 
             return timeMeasure switch
             {

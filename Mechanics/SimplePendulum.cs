@@ -29,7 +29,7 @@ namespace UniversityPhysics.Mechanics
         /// Angle in radians
         /// </summary>
         public double SwingAngle { get; }
-        public double LocalGravity { get; set; } = UnitsAndConstants.Constants.StandardGravity;
+        public double LocalGravity { get; set; } = UnitsAndConstants.Constants.Common.StandardGravity;
 
         /// <summary>
         /// T = 1/f = 2 pi * sqrt(L/g)
