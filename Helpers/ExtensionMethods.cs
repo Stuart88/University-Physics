@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 
 namespace UniversityPhysics.Helpers
 {
     public static class ExtensionMethods
     {
+        #region Public Methods
+
         public static double DecimalPoints(this double d, int points)
         {
             double scale = Math.Pow(10, points);
@@ -15,7 +13,9 @@ namespace UniversityPhysics.Helpers
             d = Math.Round(d);
 
             return d / scale;
+        }
 
-        }  
+        #endregion Public Methods
+
     }
 }

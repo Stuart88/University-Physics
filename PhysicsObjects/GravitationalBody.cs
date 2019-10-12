@@ -1,32 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UniversityPhysics.Maths;
-using UniversityPhysics.UnitsAndConstants;
 using UniversityPhysics.Enums;
+using UniversityPhysics.Maths;
 using UniversityPhysics.PhysicsObjects;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.Astrophysics
 {
     public class GravitationalBody : PhysicsObjectBase
     {
+        #region Public Constructors
+
         public GravitationalBody(double radius, double mass)
         {
             Radius = radius;
             Mass = mass;
         }
 
-        public double Radius { get; set; }
+        #endregion Public Constructors
+
+        #region Public Properties
+
         public double EscapeVelocity => Math.Sqrt(2 * Constants.Common.G * Mass / Radius);
         public double GravityAtSurface => Constants.Common.G * Mass / (Radius * Radius);
+        public double Radius { get; set; }
 
+        #endregion Public Properties
 
-        //Methods
+        #region Public Methods
 
         /// <summary>
         /// Calculates the gravitational force that exists between this body and another gravitational body.
         /// </summary>
-        /// <returns>Force (Vector) directed toward this body, i.e. if the other body has higher gravitational strength, 
+        /// <returns>Force (Vector) directed toward this body, i.e. if the other body has higher gravitational strength,
         /// the force will be negative (directed away from this body)</returns>
         public Vector GravitationalForceOn(GravitationalBody b)
         {
@@ -67,8 +72,6 @@ namespace UniversityPhysics.Astrophysics
             };
         }
 
-
-        
-
+        #endregion Public Methods
     }
 }

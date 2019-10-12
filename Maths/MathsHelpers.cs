@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UniversityPhysics.Enums;
 using UniversityPhysics.PhysicsObjects;
 
@@ -8,23 +6,16 @@ namespace UniversityPhysics.Maths
 {
     public static class MathsHelpers
     {
+        #region Private Fields
+
         /// <summary>
         /// For value comparison. Necessary for avoiding floating point accurary errors
         /// </summary>
         private const double tolerance = 0.0000001;
-        public static bool WithinTolerance(double a, double b)
-        {
-            return Math.Abs(a - b) <= tolerance;
-        }
 
-        /// <summary>
-        /// Calculates the distance between two physical objects
-        /// </summary>
-        /// <returns></returns>
-        public static double DistanceBetween(this PhysicsObjectBase obj, PhysicsObjectBase obj2)
-        {
-            return (obj.Position - obj2.Position).Abs();
-        }
+        #endregion Private Fields
+
+        #region Public Methods
 
         /// <summary>
         /// For finding the rotation rate (in rads per second) of a planetary body based on the length of its day
@@ -55,11 +46,22 @@ namespace UniversityPhysics.Maths
             double radsPerSec = radialVelocity / radius;
 
             return new Vector(0, 0, radsPerSec);
-            
-
         }
 
+        /// <summary>
+        /// Calculates the distance between two physical objects
+        /// </summary>
+        /// <returns></returns>
+        public static double DistanceBetween(this PhysicsObjectBase obj, PhysicsObjectBase obj2)
+        {
+            return (obj.Position - obj2.Position).Abs();
+        }
 
-        
+        public static bool WithinTolerance(double a, double b)
+        {
+            return Math.Abs(a - b) <= tolerance;
+        }
+
+        #endregion Public Methods
     }
 }

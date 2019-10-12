@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UniversityPhysics.Enums
+﻿namespace UniversityPhysics.Enums
 {
-    public enum TimeMeasure
+    public enum Axis_Cartesian
     {
-        Nanosecond,
-        Millisecond,
-        Second,
-        Minute,
-        Hour,
-        Day,
-        Week,
-        Month,
-        Year
+        X,
+        Y,
+        Z
+    }
+
+    public enum EnergyMeasure
+    {
+        Joule,
+        eV,
+        MeV,
+        kWh
     }
 
     public enum LengthMeasure
@@ -26,13 +24,6 @@ namespace UniversityPhysics.Enums
         Kilometre
     }
 
-    public enum Axis_Cartesian
-    {
-        X,
-        Y,
-        Z
-    }
-
     public enum TemperatureType
     {
         Kelvin,
@@ -40,11 +31,16 @@ namespace UniversityPhysics.Enums
         Fahrenheit
     }
 
-    public enum EnergyMeasure
+    public enum TimeMeasure
     {
-        Joule,
-        eV,
-        MeV,
-        kWh
+        Nanosecond,
+        Millisecond,
+        Second,
+        Minute,
+        Hour,
+        Day,
+        Week,
+        Month,
+        Year
     }
 }

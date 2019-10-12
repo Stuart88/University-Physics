@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using UniversityPhysics.Enums;
 using UniversityPhysics.Maths;
 using UniversityPhysics.UnitsAndConstants;
@@ -10,19 +8,52 @@ namespace UniversityPhysics.PhysicsObjects
     public abstract class PhysicsObjectBase
     {
 
-        //Fields
+        #region Internal Fields
 
         internal Vector _momentOfInertia = new Vector();
         internal double _object3DMass = 0d;
 
-        //Properties
+        #endregion Internal Fields
+
+        #region Public Properties
+
+        public Vector Acceleration { get; set; } = new Vector();
+
+        public double Charge { get; set; } = 0d;
+
+        public Vector KineticEnergy_Rotational
+        {
+            get { return 0.5 * new Vector(_momentOfInertia.X * Math.Pow(Rotation.X, 2), _momentOfInertia.Y * Math.Pow(Rotation.Y, 2), _momentOfInertia.Z * Math.Pow(Rotation.Z, 2)); }
+        }
+
+        public Vector KineticEnergy_Translational
+        {
+            get { return 0.5 * Mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
+        }
 
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
         public double Mass { get; set; } = 0d;
-        public double Charge { get; set; } = 0d;
+
         public Vector MomentOfInertia { get { return _momentOfInertia; } }
+
+        public Vector Momentum
+        {
+            get
+            {
+                return this is Object3D
+                    ? Velocity * _object3DMass
+                    : Velocity * Mass;
+            }
+        }
+
+        public Vector Position { get; set; } = new Vector();
+
+        public Vector Rotation { get; set; } = new Vector();
+
+        public Vector RotationalAcceleration { get; set; } = new Vector();
+
         public double TotalEnergy
         {
             get
@@ -30,30 +61,12 @@ namespace UniversityPhysics.PhysicsObjects
                 return KineticEnergy_Translational.Abs() + KineticEnergy_Rotational.Abs();
             }
         }
-        public Vector Position { get; set; } = new Vector();
-        public Vector Velocity { get; set; } = new Vector();
-        public Vector Acceleration { get; set; } = new Vector();
-        public Vector Rotation { get; set; } = new Vector();
-        public Vector RotationalAcceleration { get; set; } = new Vector();
-        public Vector Momentum
-        {
-            get 
-            {
-                return this is Object3D
-                    ? Velocity * _object3DMass
-                    : Velocity * Mass;
-            }
-        }
-        public Vector KineticEnergy_Translational
-        {
-            get { return 0.5 * Mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
-        }
-        public Vector KineticEnergy_Rotational
-        {
-            get { return 0.5 * new Vector(_momentOfInertia.X * Math.Pow(Rotation.X, 2), _momentOfInertia.Y * Math.Pow(Rotation.Y, 2), _momentOfInertia.Z * Math.Pow(Rotation.Z, 2)); }
-        }
 
-        //Public Methods
+        public Vector Velocity { get; set; } = new Vector();
+
+        #endregion Public Properties
+
+        #region Public Methods
 
         /// <summary>
         /// Updates velocity via v = u + at
@@ -66,20 +79,20 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         /// <summary>
+        /// Adds an extra force to the object. (Updates Acceleration property via F=ma ).
+        /// </summary>
+        public void AddForce_Translational(Vector force)
+        {
+            Acceleration += (force / Mass);
+        }
+
+        /// <summary>
         /// Updates Position, uses s = ut + 1/2 at^2
         /// </summary>
         /// <param name="timeDelta"></param>
         public void Move(double timeDelta)
         {
             Position += (Velocity * timeDelta + 0.5 * Acceleration * timeDelta * timeDelta);
-        }
-
-        /// <summary>
-        /// Adds an extra force to the object. (Updates Acceleration property via F=ma ).
-        /// </summary>
-        public void AddForce_Translational(Vector force)
-        {
-            Acceleration += (force / Mass);
         }
 
         /// <summary>
@@ -111,37 +124,9 @@ namespace UniversityPhysics.PhysicsObjects
                         throw new Exception("Object is not rotating!");
                     return RotationToPeriod(Rotation.Z, timeMeasure);
             }
-
-
         }
 
         //Private Methods
-
-        private double RotationToPeriod(double rotation, TimeMeasure timeMeasure)
-        {
-            // T = 2Pi / rotation
-
-            double periodInSeconds = 2 * Math.PI / rotation;
-
-            return timeMeasure switch
-            {
-                TimeMeasure.Second => periodInSeconds,
-                TimeMeasure.Hour => periodInSeconds / Constants.Time.Hour_Seconds,
-                TimeMeasure.Minute => periodInSeconds / Constants.Time.Minute_Seconds,
-                TimeMeasure.Day => periodInSeconds / Constants.Time.Day_Seconds,
-                TimeMeasure.Week => periodInSeconds / Constants.Time.Week_Seconds,
-                TimeMeasure.Month => periodInSeconds / Constants.Time.Month_Seconds,
-                TimeMeasure.Year => periodInSeconds / Constants.Time.Year_Seconds,
-                _ => periodInSeconds
-            };
-
-
-
-
-        }
-
-
-        //Overrides
 
         public override string ToString()
         {
@@ -160,7 +145,30 @@ namespace UniversityPhysics.PhysicsObjects
             return string.Join('\n', properties);
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private double RotationToPeriod(double rotation, TimeMeasure timeMeasure)
+        {
+            // T = 2Pi / rotation
+
+            double periodInSeconds = 2 * Math.PI / rotation;
+
+            return timeMeasure switch
+            {
+                TimeMeasure.Second => periodInSeconds,
+                TimeMeasure.Hour => periodInSeconds / Constants.Time.Hour_Seconds,
+                TimeMeasure.Minute => periodInSeconds / Constants.Time.Minute_Seconds,
+                TimeMeasure.Day => periodInSeconds / Constants.Time.Day_Seconds,
+                TimeMeasure.Week => periodInSeconds / Constants.Time.Week_Seconds,
+                TimeMeasure.Month => periodInSeconds / Constants.Time.Month_Seconds,
+                TimeMeasure.Year => periodInSeconds / Constants.Time.Year_Seconds,
+                _ => periodInSeconds
+            };
+        }
+
+        #endregion Private Methods
+
     }
-
-
 }

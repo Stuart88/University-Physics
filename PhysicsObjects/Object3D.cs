@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UniversityPhysics.Maths;
 using UniversityPhysics.Mechanics;
 
@@ -10,6 +9,14 @@ namespace UniversityPhysics.PhysicsObjects
     public class Object3D : PhysicsObjectBase
     {
         //Constructors
+
+        #region Private Fields
+
+        private Vector _position = new Vector();
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         /// <summary>
         /// Object3D constructor
@@ -40,18 +47,22 @@ namespace UniversityPhysics.PhysicsObjects
             _momentOfInertia = SetMomentOfInertia(massPoints, position);
         }
 
-        // Fields 
+        #endregion Public Constructors
 
-        private Vector _position = new Vector();
-
+        // Fields
         // Properties
 
-        public List<MassPoint> MassPoints { get; set; }
+        #region Public Properties
+
         public Vector CentreOfGravity { get; private set; } = new Vector();
+        new public double Mass { get; }
+        public List<MassPoint> MassPoints { get; set; }
+
         new public Vector Position
         {
             get { return _position; }
-            set {
+            set
+            {
                 Vector diff = new Vector();
                 foreach (MassPoint m in MassPoints)
                 {
@@ -62,16 +73,16 @@ namespace UniversityPhysics.PhysicsObjects
                     m.Position = m.Position + diff;
                 }
 
-                //assign new position 
+                //assign new position
                 _position = value;
                 //and update _centreOfGravity field.
                 CentreOfGravity = SetCentreOfMass();
             }
         }
-        new public double Mass { get; }
-        
 
-        //Public Methods
+        #endregion Public Properties
+
+        #region Public Methods
 
         /// <summary>
         /// Adds constant external force to the object at some distance away from the centre of mass. This will result in a torque being applied.
@@ -80,15 +91,14 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="applicationPoint">Radial position from centre of mass</param>
         public void AddForce_OffCentre(Vector force, Vector applicationPoint)
         {
-
             // hmmm
             double torqueX = Math.Sign(force.Y) * force.Z;
             double torqueY = Math.Sign(force.Z) * force.X;
             double torqueZ = Math.Sign(force.X) * force.Y;
 
-
             AddTorque(new Vector(torqueX, torqueY, torqueZ));
         }
+
         /// <summary>
         /// Adds a constant torque to the object using τ = Iα (torque = moment of intertia * angular acceleration)
         /// </summary>
@@ -102,7 +112,16 @@ namespace UniversityPhysics.PhysicsObjects
             RotationalAcceleration += new Vector(aX, aY, aZ);
         }
 
-        // Private Methods
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private Vector SetCentreOfMass()
+        {
+            List<Particle> massPoints = MassPoints.Select(m => m.ToPhysicsObject(m)).ToList();
+
+            return BasicMechanics.CentreOfMass(massPoints);
+        }
 
         private Vector SetMomentOfInertia(List<MassPoint> massPoints, Vector position)
         {
@@ -118,14 +137,7 @@ namespace UniversityPhysics.PhysicsObjects
 
             return new Vector(momentX, momentY, momentZ);
         }
-        private Vector SetCentreOfMass()
-        {
-            List<Particle> massPoints = MassPoints.Select(m => m.ToPhysicsObject(m)).ToList();
 
-            return BasicMechanics.CentreOfMass(massPoints);
-        }
-
-        
-
+        #endregion Private Methods
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using UniversityPhysics.Maths;
 using System.Linq;
+using UniversityPhysics.Maths;
 using UniversityPhysics.PhysicsObjects;
 
 namespace UniversityPhysics.Mechanics
 {
     public static class BasicMechanics
     {
-        
+        #region Public Methods
 
         /// <summary>
         /// Finds the centre of mass of an array of Physics objects
@@ -35,7 +34,7 @@ namespace UniversityPhysics.Mechanics
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Vector CentreOfMass<T>(this List<T> p) where T :  PhysicsObjectBase
+        public static Vector CentreOfMass<T>(this List<T> p) where T : PhysicsObjectBase
         {
             double totalMass = p.Sum(x => x.Mass);
 
@@ -49,19 +48,38 @@ namespace UniversityPhysics.Mechanics
             return new Vector(centreOfMassX, centreOfMassY, centreOfMassZ);
         }
 
-        //Exceptions
+        #endregion Public Methods
 
+        #region Public Classes
 
         [Serializable]
         public class NegativeMassException : Exception
         {
-            public NegativeMassException() { }
-            public NegativeMassException(string message) : base(message) { }
-            public NegativeMassException(string message, Exception inner) : base(message, inner) { }
+            #region Public Constructors
+
+            public NegativeMassException()
+            {
+            }
+
+            public NegativeMassException(string message) : base(message)
+            {
+            }
+
+            public NegativeMassException(string message, Exception inner) : base(message, inner)
+            {
+            }
+
+            #endregion Public Constructors
+
+            #region Protected Constructors
+
             protected NegativeMassException(
               System.Runtime.Serialization.SerializationInfo info,
               System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+
+            #endregion Protected Constructors
         }
-        
+
+        #endregion Public Classes
     }
 }

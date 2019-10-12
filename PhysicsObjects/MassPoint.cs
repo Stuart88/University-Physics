@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using UniversityPhysics.Maths;
-using UniversityPhysics.Mechanics;
+﻿using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.PhysicsObjects
 {
@@ -11,22 +7,34 @@ namespace UniversityPhysics.PhysicsObjects
     /// </summary>
     public class MassPoint
     {
+        #region Public Fields
+
+        public double Mass;
+
+        /// <summary>
+        /// Position in 3D space
+        /// </summary>
+        public Vector Position;
+
+        #endregion Public Fields
+
+        #region Public Constructors
+
         public MassPoint(Vector position, double mass)
         {
             Position = position;
             Mass = mass;
         }
-        /// <summary>
-        /// Position in 3D space
-        /// </summary>
-        public Vector Position;
-        public double Mass;
-        
+
+        #endregion Public Constructors
+
+        #region Public Methods
+
         public Particle ToPhysicsObject(MassPoint m)
         {
             return new Particle(m.Position, Mass);
         }
 
-
+        #endregion Public Methods
     }
 }

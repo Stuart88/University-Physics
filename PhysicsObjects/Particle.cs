@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.PhysicsObjects
 {
-    public class Particle: PhysicsObjectBase
+    public class Particle : PhysicsObjectBase
     {
+        #region Public Constructors
+
         public Particle(double mass) : base()
         {
             if (mass <= 0)
@@ -16,17 +15,15 @@ namespace UniversityPhysics.PhysicsObjects
             Mass = mass;
         }
 
-        public Particle(Vector position, double mass): base ()
+        public Particle(Vector position, double mass) : base()
         {
-            if (mass <=  0)
+            if (mass <= 0)
                 throw new Exception("This object cannot be massless!");
 
             Position = position;
             Mass = mass;
         }
 
-        
+        #endregion Public Constructors
     }
-
-    
 }
