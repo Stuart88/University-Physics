@@ -12,9 +12,9 @@ namespace UniversityPhysics.Astrophysics
             Rotation = new Vector(0, 0, 7.292E-5),
         };
 
-        public static GravitationalBody Sol = new GravitationalBody(AstrophysicalConstants.Sun_Radius, AstrophysicalConstants.Sun_Mass)
+        public static GravitationalBody Sol = new GravitationalBody(AstrophysicalConstants.Solar_Radius, AstrophysicalConstants.Solar_Mass)
         {
-            Rotation = MathsHelpers.DayLengthToRotation(AstrophysicalConstants.Sun_Radius, 25.38, Enums.TimeMeasure.Day)
+            Rotation = MathsHelpers.DayLengthToRotation(AstrophysicalConstants.Solar_Radius, 25.38, Enums.TimeMeasure.Day)
         };
 
         #endregion Public Fields
