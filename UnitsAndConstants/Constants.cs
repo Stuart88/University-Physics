@@ -18,8 +18,8 @@ namespace UniversityPhysics.UnitsAndConstants
 
             public const double Earth_Mass = 5.9723E24;
             public const double Earth_Radius = 6.371E6;
-            public const double Sun_Mass = 1.989E30;
-            public const double Sun_Radius = 6.957E8;
+            public const double Solar_Mass = 1.989E30;
+            public const double Solar_Radius = 6.957E8;
 
             #endregion Public Fields
         }
@@ -57,6 +57,11 @@ namespace UniversityPhysics.UnitsAndConstants
             /// Permitivity of vacuum
             /// </summary>
             public const double epsilon0 = 8.854E-12;
+
+            /// <summary>
+            /// Electron volt mass (eV/c^2)
+            /// </summary>
+            public const double eV_Mass = 1.79E-36;
 
             /// <summary>
             /// Faraday Constant
@@ -99,6 +104,11 @@ namespace UniversityPhysics.UnitsAndConstants
             public const double K = 8.988E9;
 
             /// <summary>
+            /// Coulomb constant
+            /// </summary>
+            public const double K_Coulomb = 8987551787.3681764;
+
+            /// <summary>
             /// Boltzmann Constant in MeV/c^2
             /// </summary>
             public const double k_eV = 8.617E-5;
@@ -134,6 +144,11 @@ namespace UniversityPhysics.UnitsAndConstants
             public const double m_p_eV = 938.27231;
 
             /// <summary>
+            /// Mega-electron volt mass (MeV/c^2)
+            /// </summary>
+            public const double MeV_Mass = 1.79E-30;
+
+            /// <summary>
             /// Bohr Magneton
             /// </summary>
             public const double mu_b = 9.274E-24;
@@ -152,6 +167,11 @@ namespace UniversityPhysics.UnitsAndConstants
             /// Avogadro's Number
             /// </summary>
             public const double NA = 6.022E23;
+
+            /// <summary>
+            /// Planck Mass
+            /// </summary>
+            public const double PlanckMass = 2.18E-8;
 
             /// <summary>
             /// Molar Gas Constant

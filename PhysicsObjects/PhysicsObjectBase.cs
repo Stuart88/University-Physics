@@ -1,5 +1,7 @@
 ﻿using System;
+using UniversityPhysics.Electromagnetism;
 using UniversityPhysics.Enums;
+using UniversityPhysics.FluidDynamics;
 using UniversityPhysics.Maths;
 using UniversityPhysics.UnitsAndConstants;
 
@@ -7,11 +9,12 @@ namespace UniversityPhysics.PhysicsObjects
 {
     public abstract class PhysicsObjectBase
     {
-
         #region Internal Fields
 
         internal Vector _momentOfInertia = new Vector();
         internal double _object3DMass = 0d;
+        internal ElectricField ElectricField = new ElectricField();
+        internal VelocityField VelocityField = new VelocityField();
 
         #endregion Internal Fields
 
@@ -34,7 +37,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
-        public double Mass { get; set; } = 0d;
+        public Mass Mass { get; set; } = 0d;
 
         public Vector MomentOfInertia { get { return _momentOfInertia; } }
 
@@ -86,13 +89,34 @@ namespace UniversityPhysics.PhysicsObjects
             Acceleration += (force / Mass);
         }
 
+        public void ApplyElectricField(ElectricField f)
+        {
+            //AddForce_Translational(f.Result(Position) * Charge);
+            ElectricField = f;
+        }
+
+        public void ApplyVelocityField(VelocityField f)
+        {
+            VelocityField = f;
+        }
+
+        public void ClearElectricField()
+        {
+            ElectricField = new ElectricField();
+        }
+
+        public void ClearVelocityField()
+        {
+            VelocityField = new VelocityField();
+        }
+
         /// <summary>
         /// Updates Position, uses s = ut + 1/2 at^2
         /// </summary>
         /// <param name="timeDelta"></param>
         public void Move(double timeDelta)
         {
-            Position += (Velocity * timeDelta + 0.5 * Acceleration * timeDelta * timeDelta);
+            Position += ((Velocity + VelocityField.Result(Position)) * timeDelta + 0.5 * Acceleration * timeDelta * timeDelta);
         }
 
         /// <summary>
@@ -169,6 +193,5 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         #endregion Private Methods
-
     }
 }

@@ -2,11 +2,10 @@
 using UniversityPhysics.Enums;
 using UniversityPhysics.Maths;
 
-namespace UniversityPhysics.Thermodynamics
+namespace UniversityPhysics.UnitsAndConstants
 {
     public class Temperature
     {
-
         #region Public Constructors
 
         public Temperature(double temp, TemperatureType type)
@@ -24,7 +23,6 @@ namespace UniversityPhysics.Thermodynamics
 
         #endregion Public Properties
 
-        #region Public Methods
         #region Public Methods
 
         /// <summary>
@@ -112,6 +110,7 @@ namespace UniversityPhysics.Thermodynamics
                 return this == t;
             }
         }
+
         public override int GetHashCode()
         {
             return this.ToString().GetHashCode();

@@ -22,7 +22,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// Object3D constructor
         /// </summary>
         /// <param name="massPoints">List of points defining areas of mass on the object</param>
-        public Object3D(List<MassPoint> massPoints)
+        public Object3D(List<PointMass> massPoints)
         {
             MassPoints = massPoints;
             _object3DMass = massPoints.Sum(m => m.Mass);
@@ -37,7 +37,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// </summary>
         /// <param name="massPoints">List of points defining areas of mass on the object</param>
         /// <param name="position">Position of object, aligned to object's centre of mass</param>
-        public Object3D(List<MassPoint> massPoints, Vector position)
+        public Object3D(List<PointMass> massPoints, Vector position)
         {
             MassPoints = massPoints;
             _object3DMass = massPoints.Sum(m => m.Mass);
@@ -56,7 +56,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         public Vector CentreOfGravity { get; private set; } = new Vector();
         new public double Mass { get; }
-        public List<MassPoint> MassPoints { get; set; }
+        public List<PointMass> MassPoints { get; set; }
 
         new public Vector Position
         {
@@ -64,7 +64,7 @@ namespace UniversityPhysics.PhysicsObjects
             set
             {
                 Vector diff = new Vector();
-                foreach (MassPoint m in MassPoints)
+                foreach (PointMass m in MassPoints)
                 {
                     //find difference between old and new position
                     diff = value - _position;
@@ -123,12 +123,12 @@ namespace UniversityPhysics.PhysicsObjects
             return BasicMechanics.CentreOfMass(massPoints);
         }
 
-        private Vector SetMomentOfInertia(List<MassPoint> massPoints, Vector position)
+        private Vector SetMomentOfInertia(List<PointMass> massPoints, Vector position)
         {
             double momentX = 0;
             double momentY = 0;
             double momentZ = 0;
-            foreach (MassPoint m in massPoints)
+            foreach (PointMass m in massPoints)
             {
                 momentX += m.Mass * Math.Pow(position.Y - m.Position.Y, 2);
                 momentY += m.Mass * Math.Pow(position.Z - m.Position.Z, 2);

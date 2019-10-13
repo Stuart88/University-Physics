@@ -24,6 +24,16 @@
         Kilometre
     }
 
+    public enum MassMeasure
+    {
+        Kilogram,
+        SolarMass,
+        AtomicMassUnit,
+        eV,
+        MeV,
+        PlanckMass,
+    }
+
     public enum TemperatureType
     {
         Kelvin,

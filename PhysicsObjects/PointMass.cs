@@ -5,7 +5,7 @@ namespace UniversityPhysics.PhysicsObjects
     /// <summary>
     /// Use in a collection to create Object3D objects
     /// </summary>
-    public class MassPoint
+    public class PointMass
     {
         #region Public Fields
 
@@ -20,7 +20,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         #region Public Constructors
 
-        public MassPoint(Vector position, double mass)
+        public PointMass(Vector position, double mass)
         {
             Position = position;
             Mass = mass;
@@ -30,9 +30,9 @@ namespace UniversityPhysics.PhysicsObjects
 
         #region Public Methods
 
-        public Particle ToPhysicsObject(MassPoint m)
+        public Particle ToPhysicsObject(PointMass m)
         {
-            return new Particle(m.Position, Mass);
+            return new Particle(Mass, m.Position);
         }
 
         #endregion Public Methods

@@ -1,4 +1,5 @@
 ﻿using System;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.Thermodynamics
 {
@@ -24,9 +25,9 @@ namespace UniversityPhysics.Thermodynamics
 
             #region Public Methods
 
-            public static double EnergyPerMolecule(Temperature T) => 1.5 * k * T.Kelvin;
+            public static Energy EnergyPerMolecule(Temperature T) => 1.5 * k * T.Kelvin;
 
-            public static double m_Total(double nMoles, double molarMass) => nMoles * molarMass;
+            public static Mass m_Total(double nMoles, double molarMass) => nMoles * molarMass;
 
             /// <summary>
             /// Finds the mean free path per particle for a set of N molecules in a given volume.
@@ -70,7 +71,7 @@ namespace UniversityPhysics.Thermodynamics
             /// </summary>
             /// <param name="n_Moles">Number of moles</param>
             /// <param name="T">Temperature in Kelvin</param>
-            public static double TotalTranslationalEnergy(double n_Moles, Temperature T) => 1.5 * n_Moles * R * T.Kelvin;
+            public static Energy TotalTranslationalEnergy(double n_Moles, Temperature T) => 1.5 * n_Moles * R * T.Kelvin;
 
             public static double Volume(double p, double nMoles, Temperature T) => (nMoles * R * T.Kelvin) / p;
 

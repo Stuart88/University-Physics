@@ -1,4 +1,5 @@
 ﻿using System;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.Maths
 {
@@ -27,7 +28,6 @@ namespace UniversityPhysics.Maths
 
     public class Vector : IVector
     {
-
         #region Public Constructors
 
         public Vector()
@@ -60,9 +60,24 @@ namespace UniversityPhysics.Maths
 
         #region Public Methods
 
+        public static implicit operator Vector(double[] vals)
+        {
+            if (vals.Length == 2)
+                return new Vector(vals[0], vals[1]);
+            else if (vals.Length == 3)
+                return new Vector(vals[0], vals[1], vals[2]);
+            else
+                throw new VectorException("Vector initialisation array must be of the form {x, y} or {x, y, z}");
+        }
+
         public static Vector operator -(Vector a, Vector b)
         {
             return new Vector(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        }
+
+        public static Vector operator -(Vector a)
+        {
+            return new Vector(-a.X, -a.Y, -a.Z);
         }
 
         public static bool operator !=(Vector a, Vector b)
@@ -113,6 +128,16 @@ namespace UniversityPhysics.Maths
             return new Vector(a.X * b, a.Y * b, a.Z * b);
         }
 
+        public static Vector operator *(Vector a, Mass m)
+        {
+            return a * m.Kilograms;
+        }
+
+        public static Vector operator *(Mass m, Vector a)
+        {
+            return a * m.Kilograms;
+        }
+
         public static Vector operator /(Vector a, int b)
         {
             if (b == 0)
@@ -135,6 +160,11 @@ namespace UniversityPhysics.Maths
                 throw new DivideByZeroException();
 
             return new Vector(a.X / b, a.Y / b, a.Z / b);
+        }
+
+        public static Vector operator /(Vector a, Mass m)
+        {
+            return a / m.Kilograms;
         }
 
         public static Vector operator +(Vector a, Vector b)
@@ -187,7 +217,6 @@ namespace UniversityPhysics.Maths
             }
         }
 
-        //Overrides
         public override int GetHashCode()
         {
             return this.ToString().GetHashCode();
@@ -212,5 +241,37 @@ namespace UniversityPhysics.Maths
         }
 
         #endregion Public Methods
+
+        #region Public Classes
+
+        [Serializable]
+        public class VectorException : Exception
+        {
+            #region Public Constructors
+
+            public VectorException()
+            {
+            }
+
+            public VectorException(string message) : base(message)
+            {
+            }
+
+            public VectorException(string message, Exception inner) : base(message, inner)
+            {
+            }
+
+            #endregion Public Constructors
+
+            #region Protected Constructors
+
+            protected VectorException(
+              System.Runtime.Serialization.SerializationInfo info,
+              System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+
+            #endregion Protected Constructors
+        }
+
+        #endregion Public Classes
     }
 }

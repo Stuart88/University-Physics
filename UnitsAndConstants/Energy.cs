@@ -1,8 +1,8 @@
 ﻿using UniversityPhysics.Enums;
 
-namespace UniversityPhysics.Thermodynamics
+namespace UniversityPhysics.UnitsAndConstants
 {
-    public class EnergyConverter
+    public class Energy
     {
         #region Public Constructors
 
@@ -11,7 +11,7 @@ namespace UniversityPhysics.Thermodynamics
         /// </summary>
         /// <param name="value">Energy value</param>
         /// <param name="measure">Energy type</param>
-        public EnergyConverter(double energy, EnergyMeasure type)
+        public Energy(double energy, EnergyMeasure type)
         {
             SetEnergy(energy, type);
         }
@@ -28,6 +28,11 @@ namespace UniversityPhysics.Thermodynamics
         #endregion Public Properties
 
         #region Public Methods
+
+        public static implicit operator Energy(double e)
+        {
+            return new Energy(e, EnergyMeasure.Joule);
+        }
 
         public void SetEnergy(double value, EnergyMeasure measure)
         {
