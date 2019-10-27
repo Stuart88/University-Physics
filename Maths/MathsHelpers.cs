@@ -27,17 +27,7 @@ namespace UniversityPhysics.Maths
         public static Vector DayLengthToRotation(double radius, double dayLength, TimeMeasure timeMeasure = TimeMeasure.Hour)
         {
             //convert dayLength to seconds
-            dayLength = timeMeasure switch
-            {
-                TimeMeasure.Second => dayLength,
-                TimeMeasure.Minute => dayLength * UnitsAndConstants.Constants.Time.Minute_Seconds,
-                TimeMeasure.Hour => dayLength * UnitsAndConstants.Constants.Time.Hour_Seconds,
-                TimeMeasure.Day => dayLength * UnitsAndConstants.Constants.Time.Day_Seconds,
-                TimeMeasure.Week => dayLength * UnitsAndConstants.Constants.Time.Week_Seconds,
-                TimeMeasure.Month => dayLength * UnitsAndConstants.Constants.Time.Month_Seconds,
-                TimeMeasure.Year => dayLength * UnitsAndConstants.Constants.Time.Year_Seconds,
-                _ => dayLength * UnitsAndConstants.Constants.Time.Hour_Seconds,
-            };
+            dayLength = DayLengthToSeconds(dayLength, timeMeasure);
 
             //circumference / dayLength
             double radialVelocity = (2 * Math.PI * radius) / dayLength;
@@ -94,5 +84,24 @@ namespace UniversityPhysics.Maths
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private static double DayLengthToSeconds(double dayLength, TimeMeasure timeMeasure)
+        {
+            switch (timeMeasure)
+            {
+                case TimeMeasure.Second: return dayLength;
+                case TimeMeasure.Minute: return dayLength * UnitsAndConstants.Constants.Time.Minute_Seconds;
+                case TimeMeasure.Hour: return dayLength * UnitsAndConstants.Constants.Time.Hour_Seconds;
+                case TimeMeasure.Day: return dayLength * UnitsAndConstants.Constants.Time.Day_Seconds;
+                case TimeMeasure.Week: return dayLength * UnitsAndConstants.Constants.Time.Week_Seconds;
+                case TimeMeasure.Month: return dayLength * UnitsAndConstants.Constants.Time.Month_Seconds;
+                case TimeMeasure.Year: return dayLength * UnitsAndConstants.Constants.Time.Year_Seconds;
+                default: return dayLength * UnitsAndConstants.Constants.Time.Hour_Seconds;
+            };
+        }
+
+        #endregion Private Methods
     }
 }

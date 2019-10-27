@@ -59,19 +59,28 @@ namespace UniversityPhysics.Astrophysics
         {
             double periodInSeconds = Math.Sqrt(Math.Pow(orbitRadius, 3) * (4 * Math.Pow(Math.PI, 2)) / (Constants.Common.G * Mass));
 
-            return timeMeasure switch
-            {
-                TimeMeasure.Second => periodInSeconds,
-                TimeMeasure.Hour => periodInSeconds / Constants.Time.Hour_Seconds,
-                TimeMeasure.Minute => periodInSeconds / Constants.Time.Minute_Seconds,
-                TimeMeasure.Day => periodInSeconds / Constants.Time.Day_Seconds,
-                TimeMeasure.Week => periodInSeconds / Constants.Time.Week_Seconds,
-                TimeMeasure.Month => periodInSeconds / Constants.Time.Month_Seconds,
-                TimeMeasure.Year => periodInSeconds / Constants.Time.Year_Seconds,
-                _ => periodInSeconds / Constants.Time.Day_Seconds, //60 * 24
-            };
+            return ToDesiredTimeMeasure(periodInSeconds, timeMeasure);
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private static double ToDesiredTimeMeasure(double periodInSeconds, TimeMeasure timeMeasure)
+        {
+            switch (timeMeasure)
+            {
+                case TimeMeasure.Second: return periodInSeconds;
+                case TimeMeasure.Hour: return periodInSeconds * Constants.Time.Hour_Seconds;
+                case TimeMeasure.Minute: return periodInSeconds * Constants.Time.Minute_Seconds;
+                case TimeMeasure.Day: return periodInSeconds * Constants.Time.Day_Seconds;
+                case TimeMeasure.Week: return periodInSeconds * Constants.Time.Week_Seconds;
+                case TimeMeasure.Month: return periodInSeconds * Constants.Time.Month_Seconds;
+                case TimeMeasure.Year: return periodInSeconds * Constants.Time.Year_Seconds;
+                default: return periodInSeconds;
+            };
+        }
+
+        #endregion Private Methods
     }
 }

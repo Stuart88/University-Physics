@@ -128,6 +128,16 @@
             return Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj == this;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         public void SetMass(double m, Enums.MassMeasure massMeasure)
         {
             switch (massMeasure)

@@ -34,6 +34,8 @@ namespace UniversityPhysics.PhysicsObjects
             get { return 0.5 * Mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
         }
 
+        public double LifeTime { get; set; } = 0d;
+
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
@@ -52,10 +54,9 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         public Vector Position { get; set; } = new Vector();
-
         public Vector Rotation { get; set; } = new Vector();
-
         public Vector RotationalAcceleration { get; set; } = new Vector();
+        public double TimeElapsed { get; set; } = 0d;
 
         public double TotalEnergy
         {
@@ -111,7 +112,7 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         /// <summary>
-        /// Updates Position, uses s = ut + 1/2 at^2
+        /// Updates Position, uses s = ut + 1/2 at^2. Any active velocity field will also be effected here.
         /// </summary>
         /// <param name="timeDelta"></param>
         public void Move(double timeDelta)
@@ -166,7 +167,7 @@ namespace UniversityPhysics.PhysicsObjects
                 string.Format("{0} ---------- {1} ( J )",  "Total Kinetic Energy", TotalEnergy),
             };
 
-            return string.Join('\n', properties);
+            return string.Join("\n", properties);
         }
 
         #endregion Public Methods
@@ -179,16 +180,16 @@ namespace UniversityPhysics.PhysicsObjects
 
             double periodInSeconds = 2 * Math.PI / rotation;
 
-            return timeMeasure switch
+            switch (timeMeasure)
             {
-                TimeMeasure.Second => periodInSeconds,
-                TimeMeasure.Hour => periodInSeconds / Constants.Time.Hour_Seconds,
-                TimeMeasure.Minute => periodInSeconds / Constants.Time.Minute_Seconds,
-                TimeMeasure.Day => periodInSeconds / Constants.Time.Day_Seconds,
-                TimeMeasure.Week => periodInSeconds / Constants.Time.Week_Seconds,
-                TimeMeasure.Month => periodInSeconds / Constants.Time.Month_Seconds,
-                TimeMeasure.Year => periodInSeconds / Constants.Time.Year_Seconds,
-                _ => periodInSeconds
+                case TimeMeasure.Second: return periodInSeconds;
+                case TimeMeasure.Hour: return periodInSeconds / Constants.Time.Hour_Seconds;
+                case TimeMeasure.Minute: return periodInSeconds / Constants.Time.Minute_Seconds;
+                case TimeMeasure.Day: return periodInSeconds / Constants.Time.Day_Seconds;
+                case TimeMeasure.Week: return periodInSeconds / Constants.Time.Week_Seconds;
+                case TimeMeasure.Month: return periodInSeconds / Constants.Time.Month_Seconds;
+                case TimeMeasure.Year: return periodInSeconds / Constants.Time.Year_Seconds;
+                default: return periodInSeconds;
             };
         }
 
