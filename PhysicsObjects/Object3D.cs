@@ -10,13 +10,13 @@ namespace UniversityPhysics.PhysicsObjects
     {
         //Constructors
 
-        #region Private Fields
+        #region Fields
 
         private Vector _position = new Vector();
 
-        #endregion Private Fields
+        #endregion Fields
 
-        #region Public Constructors
+        #region Constructors
 
         /// <summary>
         /// Object3D constructor
@@ -29,7 +29,7 @@ namespace UniversityPhysics.PhysicsObjects
             Mass = _object3DMass;
             Position = new Vector();
             CentreOfGravity = SetCentreOfMass();
-            _momentOfInertia = SetMomentOfInertia(massPoints, Position);
+            SetMomentOfInertia(massPoints, Position);
         }
 
         /// <summary>
@@ -44,15 +44,15 @@ namespace UniversityPhysics.PhysicsObjects
             Mass = _object3DMass;
             Position = position;
             CentreOfGravity = SetCentreOfMass();
-            _momentOfInertia = SetMomentOfInertia(massPoints, position);
+            SetMomentOfInertia(massPoints, position);
         }
 
-        #endregion Public Constructors
+        #endregion Constructors
 
         // Fields
         // Properties
 
-        #region Public Properties
+        #region Properties
 
         public Vector CentreOfGravity { get; private set; } = new Vector();
         new public double Mass { get; }
@@ -80,23 +80,26 @@ namespace UniversityPhysics.PhysicsObjects
             }
         }
 
-        #endregion Public Properties
+        #endregion Properties
 
-        #region Public Methods
+        #region Methods
 
         /// <summary>
+        /// <para>
         /// Adds constant external force to the object at some distance away from the centre of mass. This will result in a torque being applied.
+        /// </para>
+        /// <para>
+        /// </para>
         /// </summary>
         /// <param name="force">Force in Newtowns</param>
         /// <param name="applicationPoint">Radial position from centre of mass</param>
         public void AddForce_OffCentre(Vector force, Vector applicationPoint)
         {
-            // hmmm
-            double torqueX = Math.Sign(force.Y) * force.Z;
-            double torqueY = Math.Sign(force.Z) * force.X;
-            double torqueZ = Math.Sign(force.X) * force.Y;
+            //resultant torque is simply the cross product of force with position vector
+            //(it correctly adds the torque for each component about the relative axes,
+            //in the correct direction about each axis (negative or positive))
 
-            AddTorque(new Vector(torqueX, torqueY, torqueZ));
+            AddTorque(force.Cross(applicationPoint));
         }
 
         /// <summary>
@@ -112,10 +115,6 @@ namespace UniversityPhysics.PhysicsObjects
             RotationalAcceleration += new Vector(aX, aY, aZ);
         }
 
-        #endregion Public Methods
-
-        #region Private Methods
-
         private Vector SetCentreOfMass()
         {
             List<Particle> massPoints = MassPoints.Select(m => m.ToPhysicsObject(m)).ToList();
@@ -123,21 +122,21 @@ namespace UniversityPhysics.PhysicsObjects
             return BasicMechanics.CentreOfMass(massPoints);
         }
 
-        private Vector SetMomentOfInertia(List<PointMass> massPoints, Vector position)
+        private void SetMomentOfInertia(List<PointMass> massPoints, Vector position)
         {
             double momentX = 0;
             double momentY = 0;
             double momentZ = 0;
             foreach (PointMass m in massPoints)
             {
-                momentX += m.Mass * Math.Pow(position.Y - m.Position.Y, 2);
-                momentY += m.Mass * Math.Pow(position.Z - m.Position.Z, 2);
-                momentZ += m.Mass * Math.Pow(position.X - m.Position.X, 2);
+                momentX += (m.Mass * (Math.Pow(position.Y - m.Position.Y, 2) + Math.Pow(position.Z - m.Position.Z, 2)));
+                momentY += (m.Mass * (Math.Pow(position.Z - m.Position.Z, 2) + Math.Pow(position.X - m.Position.X, 2)));
+                momentZ += (m.Mass * (Math.Pow(position.X - m.Position.X, 2) + Math.Pow(position.Y - m.Position.Y, 2)));
             }
 
-            return new Vector(momentX, momentY, momentZ);
+            _momentOfInertia = new Vector(momentX, momentY, momentZ);
         }
 
-        #endregion Private Methods
+        #endregion Methods
     }
 }

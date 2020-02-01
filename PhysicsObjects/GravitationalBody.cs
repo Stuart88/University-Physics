@@ -71,12 +71,12 @@ namespace UniversityPhysics.Astrophysics
             switch (timeMeasure)
             {
                 case TimeMeasure.Second: return periodInSeconds;
-                case TimeMeasure.Hour: return periodInSeconds * Constants.Time.Hour_Seconds;
-                case TimeMeasure.Minute: return periodInSeconds * Constants.Time.Minute_Seconds;
-                case TimeMeasure.Day: return periodInSeconds * Constants.Time.Day_Seconds;
-                case TimeMeasure.Week: return periodInSeconds * Constants.Time.Week_Seconds;
-                case TimeMeasure.Month: return periodInSeconds * Constants.Time.Month_Seconds;
-                case TimeMeasure.Year: return periodInSeconds * Constants.Time.Year_Seconds;
+                case TimeMeasure.Hour: return periodInSeconds / Constants.Time.Hour_Seconds;
+                case TimeMeasure.Minute: return periodInSeconds / Constants.Time.Minute_Seconds;
+                case TimeMeasure.Day: return periodInSeconds / Constants.Time.Day_Seconds;
+                case TimeMeasure.Week: return periodInSeconds / Constants.Time.Week_Seconds;
+                case TimeMeasure.Month: return periodInSeconds / Constants.Time.Month_Seconds;
+                case TimeMeasure.Year: return periodInSeconds / Constants.Time.Year_Seconds;
                 default: return periodInSeconds;
             };
         }
