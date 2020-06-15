@@ -83,6 +83,16 @@ namespace UniversityPhysics.Maths
             return Math.Abs(a - b) <= tolerance;
         }
 
+        public static double ToDegrees(double radians)
+        {
+            return radians * 180d / Math.PI;
+        }
+
+        public static double ToRadians(double degrees)
+        {
+            return Math.PI * degrees / 180d;
+        }
+
         #endregion Public Methods
 
         #region Private Methods
