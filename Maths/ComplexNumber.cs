@@ -8,12 +8,10 @@ namespace UniversityPhysics.Maths
 {
     public class ComplexNumber
     {
-
         //ComplexNumber  Constructors
         public ComplexNumber()
         {
         }
-        
 
 
         public ComplexNumber(double realPart, double imagPart)
@@ -26,111 +24,156 @@ namespace UniversityPhysics.Maths
 
         //ComplexNumber Properties
 
-        public double Magnitude { get;}
+        public double Magnitude { get; }
 
-        public double Phase { get;}
-
+        /// <summary>
+        /// Phase in radians
+        /// </summary>
+        public double Phase { get; }
 
         public double RealPart { get; set; }
 
         public double ImaginaryPart { get; set; }
 
 
-
         // Complex Number Methods
 
-        private static ComplexNumber Foil (ComplexNumber num1, ComplexNumber num2)
+        /// <summary>
+        /// Multiplies two complex numbers via the 'First, Inside, Outside, Last' method
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        private static ComplexNumber Multiply(ComplexNumber num1, ComplexNumber num2)
         {
-            
-            var realterm = num1.RealPart * num2.RealPart;
-            var crossterm1 = num1.RealPart * num2.ImaginaryPart;
-            var crossterm2 = num1.ImaginaryPart * num2.RealPart;
-            var imagterm = num1.ImaginaryPart * num2.ImaginaryPart;
-            return new ComplexNumber(realterm - imagterm, crossterm1 + crossterm2);
+            double first = num1.RealPart * num2.RealPart;
+            double outside = num1.RealPart * num2.ImaginaryPart;
+            double inside = num1.ImaginaryPart * num2.RealPart;
+            double last = num1.ImaginaryPart * num2.ImaginaryPart;
+            return new ComplexNumber(first - last, outside + inside);
         }
 
+        /// <summary>
+        /// Returns the conjugate of this complex number
+        /// </summary>
+        /// <returns></returns>
+        public ComplexNumber GetConjugate()
+        {
+            return new ComplexNumber(this.RealPart, -1.0 * this.ImaginaryPart);
+        }
+
+        /// <summary>
+        /// Conjugates the current complex number
+        /// </summary>
+        public void Conjugate()
+        {
+            this.ImaginaryPart *= -1.0;
+        }
 
         //Addition Operator Override
         public static ComplexNumber operator +(ComplexNumber num1, ComplexNumber num2)
         {
-            var RealSum = num1.RealPart + num2.RealPart;
-            var ImagSum = num1.ImaginaryPart + num2.ImaginaryPart;
-            return new ComplexNumber(RealSum, ImagSum);
+            double realSum = num1.RealPart + num2.RealPart;
+            double imagSum = num1.ImaginaryPart + num2.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
         }
 
         public static ComplexNumber operator +(double num1, ComplexNumber num2)
         {
-            var RealSum = num1 + num2.RealPart;
-            var ImagSum = num2.ImaginaryPart;
-            return new ComplexNumber(RealSum, ImagSum);
+            double realSum = num1 + num2.RealPart;
+            double imagSum = num2.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
         }
 
         public static ComplexNumber operator +(ComplexNumber num1, double num2)
         {
-            var RealSum = num1.RealPart + num2;
-            var ImagSum = num1.ImaginaryPart;
-            return new ComplexNumber(RealSum, ImagSum);
+            double realSum = num1.RealPart + num2;
+            double imagSum = num1.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
         }
 
         //Subtraction Operator Overrride
-        public static ComplexNumber operator - (ComplexNumber num1, ComplexNumber num2)
+        public static ComplexNumber operator -(ComplexNumber num1, ComplexNumber num2)
         {
-            var RealSum = num1.RealPart - num2.RealPart;
-            var ImagSum = num1.ImaginaryPart - num2.ImaginaryPart;
-            return new ComplexNumber(RealSum, ImagSum);
+            double realSum = num1.RealPart - num2.RealPart;
+            double imagSum = num1.ImaginaryPart - num2.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator -(double num1, ComplexNumber num2)
+        {
+            double realSum = num1 - num2.RealPart;
+            double imagSum = num2.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator -(ComplexNumber num1, double num2)
+        {
+            double realSum = num1.RealPart - num2;
+            double imagSum = num1.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
         }
 
         //Multiplication Operator Override
-        public static ComplexNumber operator * (ComplexNumber num1, ComplexNumber num2)
+        public static ComplexNumber operator *(ComplexNumber num1, ComplexNumber num2)
         {
-            var product = new ComplexNumber();
-            product = ComplexNumber.Foil(num1,num2);
+            ComplexNumber product =  Multiply(num1, num2);
             return product;
-            
         }
 
         //Division Operator Override
-        public static ComplexNumber operator / (ComplexNumber cnum1, ComplexNumber cnum2)
+        public static ComplexNumber operator /(ComplexNumber cnum1, ComplexNumber cnum2)
         {
-
             double divMagnitude = cnum1.Magnitude / cnum2.Magnitude;
-            double divAngle = (cnum1.Phase - cnum2.Phase);
+            double divAngle = cnum1.Phase - cnum2.Phase;
             double divrealPart = divMagnitude * Math.Cos(divAngle);
             double divimagPart = divMagnitude * Math.Sin(divAngle);
 
             return new ComplexNumber(divrealPart, divimagPart);
         }
 
-        public ComplexNumber Conjugate()
+        public static bool operator ==(ComplexNumber a, ComplexNumber b)
         {
-            ImaginaryPart = -1.0*ImaginaryPart;
-
-            return this;
+            return MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
+                   && MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
         }
+
+        public static bool operator !=(ComplexNumber a, ComplexNumber b)
+        {
+            return !MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
+                   || !MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(ComplexNumber))
+                return false;
+            else
+            {
+                ComplexNumber v = (obj as ComplexNumber);
+
+                return this == v;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        
 
         public override string ToString()
         {
-            return $"{RealPart}" + Sign() + $"{Math.Abs(ImaginaryPart)}i";
+            return $"{RealPart}{Sign()}{Math.Abs(ImaginaryPart)}i";
         }
 
         private string Sign()
         {
             if (ImaginaryPart < 0)
-            {
                 return "-";
-            }
             else
-            {
                 return "+";
-            }
         }
-
-        
-
-
-
-
-
-
     }
 }
