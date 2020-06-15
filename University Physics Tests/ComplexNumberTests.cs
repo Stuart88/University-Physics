@@ -90,6 +90,11 @@ namespace UniversityPhysics_Tests
             ComplexNumber expected3 = new ComplexNumber(13, 1);
 
             Assert.AreEqual(result3, expected3);
+
+            ComplexNumber result4 = 3 * A * 4;
+            ComplexNumber expected4 = new ComplexNumber(36, 60);
+
+            Assert.AreEqual(result4, expected4);
         }
 
         [TestMethod]
@@ -104,6 +109,10 @@ namespace UniversityPhysics_Tests
             ComplexNumber expected2 = new ComplexNumber(13d/34, 1d/34);
 
             Assert.AreEqual(result2, expected2);
+
+            ComplexNumber result3 = 1 / A / 2;
+            ComplexNumber expected3 = new ComplexNumber(3d/68, -5d/68);
+            Assert.AreEqual(result3, expected3);
         }
 
         [TestMethod]

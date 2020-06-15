@@ -84,17 +84,30 @@ namespace UniversityPhysics.Maths
             return new ComplexNumber(realSum, imagSum);
         }
 
-        public static ComplexNumber operator +(double num1, ComplexNumber num2)
+        public static ComplexNumber operator +(double n, ComplexNumber c)
         {
-            double realSum = num1 + num2.RealPart;
-            double imagSum = num2.ImaginaryPart;
+            double realSum = n + c.RealPart;
+            double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
 
-        public static ComplexNumber operator +(ComplexNumber num1, double num2)
+        public static ComplexNumber operator +(ComplexNumber c, double n)
         {
-            double realSum = num1.RealPart + num2;
-            double imagSum = num1.ImaginaryPart;
+            double realSum = c.RealPart + n;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+        public static ComplexNumber operator +(int n, ComplexNumber c)
+        {
+            double realSum = n + c.RealPart;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator +(ComplexNumber c, int n)
+        {
+            double realSum = c.RealPart + n;
+            double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
 
@@ -106,17 +119,30 @@ namespace UniversityPhysics.Maths
             return new ComplexNumber(realSum, imagSum);
         }
 
-        public static ComplexNumber operator -(double num1, ComplexNumber num2)
+        public static ComplexNumber operator -(double n, ComplexNumber c)
         {
-            double realSum = num1 - num2.RealPart;
-            double imagSum = num2.ImaginaryPart;
+            double realSum = n - c.RealPart;
+            double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
 
-        public static ComplexNumber operator -(ComplexNumber num1, double num2)
+        public static ComplexNumber operator -(ComplexNumber c, double n)
         {
-            double realSum = num1.RealPart - num2;
-            double imagSum = num1.ImaginaryPart;
+            double realSum = c.RealPart - n;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+        public static ComplexNumber operator -(int n, ComplexNumber c)
+        {
+            double realSum = n - c.RealPart;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator -(ComplexNumber c, int n)
+        {
+            double realSum = c.RealPart - n;
+            double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
 
@@ -125,6 +151,22 @@ namespace UniversityPhysics.Maths
         {
             ComplexNumber product =  Multiply(num1, num2);
             return product;
+        }
+        public static ComplexNumber operator *(ComplexNumber c, int n)
+        {
+            return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
+        }
+        public static ComplexNumber operator *(int n, ComplexNumber c)
+        {
+            return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
+        }
+        public static ComplexNumber operator *(ComplexNumber c, double n)
+        {
+            return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
+        }
+        public static ComplexNumber operator *(double n, ComplexNumber c)
+        {
+            return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
         }
 
         //Division Operator Override
@@ -136,6 +178,22 @@ namespace UniversityPhysics.Maths
             double divimagPart = divMagnitude * Math.Sin(divAngle);
 
             return new ComplexNumber(divrealPart, divimagPart);
+        }
+        public static ComplexNumber operator /(ComplexNumber c, int n)
+        {
+            return new ComplexNumber(c.RealPart / n, c.ImaginaryPart / n);
+        }
+        public static ComplexNumber operator /(int n, ComplexNumber c)
+        {
+            return new ComplexNumber(n, 0) / c;
+        }
+        public static ComplexNumber operator /(ComplexNumber c, double n)
+        {
+            return new ComplexNumber(c.RealPart / n, c.ImaginaryPart / n);
+        }
+        public static ComplexNumber operator /(double n, ComplexNumber c)
+        {
+            return new ComplexNumber(n, 0) / c;
         }
 
         public static bool operator ==(ComplexNumber a, ComplexNumber b)
