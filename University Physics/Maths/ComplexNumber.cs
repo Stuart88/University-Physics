@@ -4,6 +4,12 @@ using System.Text;
 using System.Numerics;
 using System.Linq;
 
+/*
+ * Original work by https://github.com/BeyondBelief96
+ * See: https://github.com/Stuart88/University-Physics/commit/d9ea9ad0b692210c0590b3690de0491c967fdce3
+ * (Commit tracking history seems to have been lost after a very large reshuffle, sorry!)
+ */
+
 namespace UniversityPhysics.Maths
 {
     public class ComplexNumber
