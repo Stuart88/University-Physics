@@ -212,7 +212,6 @@ namespace UniversityPhysics.Maths
             {
                 Vector v = (obj as Vector);
 
-                //return v == this && v.GetHashCode() == this.GetHashCode();
                 return this == v;
             }
         }
