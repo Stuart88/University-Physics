@@ -1,5 +1,7 @@
 # University-Physics
 
+### Click here for docs: [documentation](https://github.com/Stuart88/University-Physics/wiki)
+
 University Physics is a C# library for performing physics calculations of all kinds. The project is in its early stages, 
 but once ready it will probably be useful for things like games, simulators, education and simple research tasks.
 
