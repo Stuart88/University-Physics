@@ -20,6 +20,8 @@ namespace UniversityPhysics.Maths
 
         #region Public Properties
 
+        public ComplexNumber Conjugate { get; private set; }
+
         public double ImaginaryPart
         {
             get => _imaginaryPart;
@@ -28,6 +30,7 @@ namespace UniversityPhysics.Maths
                 _imaginaryPart = value;
                 SetMagnitude();
                 SetPhase();
+                SetConjugate();
             }
         }
 
@@ -47,6 +50,7 @@ namespace UniversityPhysics.Maths
                 _realPart = value;
                 SetMagnitude();
                 SetPhase();
+                SetConjugate();
             }
         }
 
@@ -216,7 +220,7 @@ namespace UniversityPhysics.Maths
         /// <summary>
         /// Conjugates the current complex number
         /// </summary>
-        public void Conjugate()
+        public void ConjugateSelf()
         {
             ImaginaryPart *= -1.0;
         }
@@ -233,15 +237,6 @@ namespace UniversityPhysics.Maths
 
                 return this == v;
             }
-        }
-
-        /// <summary>
-        /// Returns the conjugate of this complex number
-        /// </summary>
-        /// <returns></returns>
-        public ComplexNumber GetConjugate()
-        {
-            return new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
         }
 
         public override int GetHashCode()
@@ -271,6 +266,11 @@ namespace UniversityPhysics.Maths
             double inside = num1.ImaginaryPart * num2.RealPart;
             double last = num1.ImaginaryPart * num2.ImaginaryPart;
             return new ComplexNumber(first - last, outside + inside);
+        }
+
+        private void SetConjugate()
+        {
+            Conjugate = new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
         }
 
         private void SetMagnitude()

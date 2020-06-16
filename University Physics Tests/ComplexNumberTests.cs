@@ -134,12 +134,12 @@ namespace UniversityPhysics_Tests
         [TestMethod]
         public void TestConjugation()
         {
-            ComplexNumber result = A.GetConjugate();
+            ComplexNumber result = A.Conjugate;
             ComplexNumber expected = new ComplexNumber(3, -5);
 
             Assert.AreEqual(result, expected);
 
-            A.Conjugate();
+            A.ConjugateSelf();
 
             Assert.AreEqual(A, expected);
         }
