@@ -22,24 +22,57 @@ namespace UniversityPhysics.Maths
 
         public ComplexNumber(double realPart, double imagPart)
         {
-            RealPart = realPart;
-            ImaginaryPart = imagPart;
-            Magnitude = Math.Sqrt(Math.Pow(realPart, 2) + Math.Pow(imagPart, 2));
-            Phase = Math.Atan2(imagPart, realPart);
+            _realPart = realPart;
+            _imaginaryPart = imagPart;
+
+            SetMagnitude();
+            SetPhase();
+        }
+
+        private void SetPhase()
+        {
+            Phase = Math.Atan2(ImaginaryPart, RealPart);
         }
 
         //ComplexNumber Properties
 
-        public double Magnitude { get; }
+        public double Magnitude { get; private set; }
 
         /// <summary>
         /// Phase in radians
         /// </summary>
-        public double Phase { get; }
+        public double Phase { get; private set; }
 
-        public double RealPart { get; set; }
+        private double _realPart = 0d;
 
-        public double ImaginaryPart { get; set; }
+        public double RealPart
+        {
+            get => _realPart;
+            set
+            {
+                _realPart = value;
+                SetMagnitude();
+                SetPhase();
+            }
+        }
+
+        private void SetMagnitude()
+        {
+            Magnitude = Math.Sqrt(Math.Pow(RealPart, 2) + Math.Pow(ImaginaryPart, 2));
+        }
+
+        private double _imaginaryPart = 0d;
+
+        public double ImaginaryPart
+        {
+            get => _imaginaryPart;
+            set
+            {
+                _imaginaryPart = value;
+                SetMagnitude();
+                SetPhase();
+            }
+        }
 
 
         // Complex Number Methods
