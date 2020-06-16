@@ -6,14 +6,14 @@ namespace UniversityPhysics.Maths
 {
     public static class MathsHelpers
     {
-        #region Private Fields
+        #region Public Fields
 
         /// <summary>
         /// Percentage of allowed difference when accounting for floating point errors
         /// </summary>
         public const double Tolerance = 0.5;
 
-        #endregion Private Fields
+        #endregion Public Fields
 
         #region Public Methods
 
@@ -78,28 +78,6 @@ namespace UniversityPhysics.Maths
             return (v1 - v2).Abs();
         }
 
-        public static bool WithinTolerance(double a, double b)
-        {
-            //basic check. 
-            if (a == b)
-                return true;
-            
-            // Convert both into positive values.
-            // This ensures the higher of the two values is always the denominator
-            // in division below, to prevents a DivideByZero exception.
-            
-            a = Math.Abs(a);
-            b = Math.Abs(b);
-
-            double highest = Math.Max(a, b);
-
-            double diff = Math.Abs(a - b);
-
-            double percentOff = (diff / highest) * 100;
-
-            return percentOff < Tolerance;
-        }
-
         public static double ToDegrees(double radians)
         {
             return radians * 180d / Math.PI;
@@ -108,6 +86,34 @@ namespace UniversityPhysics.Maths
         public static double ToRadians(double degrees)
         {
             return Math.PI * degrees / 180d;
+        }
+
+        /// <summary>
+        /// Compares two double values and returns true if they are within 0.5% of each other
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool WithinTolerance(double a, double b)
+        {
+            //basic check.
+            if (a == b)
+                return true;
+
+            // Convert both into positive values.
+            // This ensures the higher of the two values is always the denominator
+            // in division below, to prevents a DivideByZero exception.
+
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+            double diff = Math.Abs(a - b);
+
+            double highest = Math.Max(a, b);
+
+            double percentOff = (diff / highest) * 100;
+
+            return percentOff < Tolerance;
         }
 
         #endregion Public Methods
