@@ -1,3 +1,4 @@
+using MathNet.Numerics.Integration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using UniversityPhysics.Maths;
@@ -28,6 +29,15 @@ namespace UniversityPhysics_Tests
             double expected = Math.PI / 4;
 
             Assert.IsTrue(Helpers.WithinTolerance(result, expected));
+        }
+
+        [TestMethod]
+        public void TestWithinTolerance()
+        {
+            double A = 200;
+            double B = 199.5;
+
+            Assert.IsTrue(Helpers.WithinTolerance(A, B));
         }
 
         #endregion Public Methods

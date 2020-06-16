@@ -30,12 +30,12 @@ namespace UniversityPhysics_Tests
             PointCharge p = new PointCharge(-8.0E-9);
             PointCharge q = new PointCharge(-6.0E-9, new Vector(1.2, -1.6));
 
-            Vector result = p.ElectricForceOn(q).DecimalPoints(0);
+            Vector result = p.ElectricForceOn(q);
 
             //Based on TestElectricField() above.
             Vector expected = new Vector(-11, 14) * (-6.0E-9) * Math.Sign(q.Charge);
 
-            Assert.AreEqual(expected, result);
+            Assert.IsTrue(Helpers.WithinTolerance(expected, result));
         }
 
         #endregion Public Methods
