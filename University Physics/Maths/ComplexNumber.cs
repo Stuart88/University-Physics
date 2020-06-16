@@ -20,7 +20,7 @@ namespace UniversityPhysics.Maths
 
         #region Public Properties
 
-        public ComplexNumber Conjugate { get; private set; }
+        public ComplexNumber Conjugate => new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
 
         public double ImaginaryPart
         {
@@ -30,7 +30,6 @@ namespace UniversityPhysics.Maths
                 _imaginaryPart = value;
                 SetMagnitude();
                 SetPhase();
-                SetConjugate();
             }
         }
 
@@ -50,17 +49,12 @@ namespace UniversityPhysics.Maths
                 _realPart = value;
                 SetMagnitude();
                 SetPhase();
-                SetConjugate();
             }
         }
 
         #endregion Public Properties
 
         #region Public Constructors
-
-        public ComplexNumber()
-        {
-        }
 
         public ComplexNumber(double realPart, double imagPart)
         {
@@ -266,11 +260,6 @@ namespace UniversityPhysics.Maths
             double inside = num1.ImaginaryPart * num2.RealPart;
             double last = num1.ImaginaryPart * num2.ImaginaryPart;
             return new ComplexNumber(first - last, outside + inside);
-        }
-
-        private void SetConjugate()
-        {
-            Conjugate = new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
         }
 
         private void SetMagnitude()
