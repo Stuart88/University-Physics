@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Numerics;
-using System.Linq;
 
 /*
  * Original work by https://github.com/BeyondBelief96
@@ -14,54 +10,15 @@ namespace UniversityPhysics.Maths
 {
     public class ComplexNumber
     {
-        //ComplexNumber  Constructors
-        public ComplexNumber()
-        {
-        }
+        #region Private Fields
 
-
-        public ComplexNumber(double realPart, double imagPart)
-        {
-            _realPart = realPart;
-            _imaginaryPart = imagPart;
-
-            SetMagnitude();
-            SetPhase();
-        }
-
-        private void SetPhase()
-        {
-            Phase = Math.Atan2(ImaginaryPart, RealPart);
-        }
-
-        //ComplexNumber Properties
-
-        public double Magnitude { get; private set; }
-
-        /// <summary>
-        /// Phase in radians
-        /// </summary>
-        public double Phase { get; private set; }
+        private double _imaginaryPart = 0d;
 
         private double _realPart = 0d;
 
-        public double RealPart
-        {
-            get => _realPart;
-            set
-            {
-                _realPart = value;
-                SetMagnitude();
-                SetPhase();
-            }
-        }
+        #endregion Private Fields
 
-        private void SetMagnitude()
-        {
-            Magnitude = Math.Sqrt(Math.Pow(RealPart, 2) + Math.Pow(ImaginaryPart, 2));
-        }
-
-        private double _imaginaryPart = 0d;
+        #region Public Properties
 
         public double ImaginaryPart
         {
@@ -74,76 +31,45 @@ namespace UniversityPhysics.Maths
             }
         }
 
+        public double Magnitude { get; private set; }
 
-        // Complex Number Methods
-
+        //ComplexNumber Properties
         /// <summary>
-        /// Multiplies two complex numbers via the 'First, Inside, Outside, Last' method
+        /// Phase in radians
         /// </summary>
-        /// <param name="num1"></param>
-        /// <param name="num2"></param>
-        /// <returns></returns>
-        private static ComplexNumber Multiply(ComplexNumber num1, ComplexNumber num2)
+        public double Phase { get; private set; }
+
+        public double RealPart
         {
-            double first = num1.RealPart * num2.RealPart;
-            double outside = num1.RealPart * num2.ImaginaryPart;
-            double inside = num1.ImaginaryPart * num2.RealPart;
-            double last = num1.ImaginaryPart * num2.ImaginaryPart;
-            return new ComplexNumber(first - last, outside + inside);
+            get => _realPart;
+            set
+            {
+                _realPart = value;
+                SetMagnitude();
+                SetPhase();
+            }
         }
 
-        /// <summary>
-        /// Returns the conjugate of this complex number
-        /// </summary>
-        /// <returns></returns>
-        public ComplexNumber GetConjugate()
+        #endregion Public Properties
+
+        #region Public Constructors
+
+        public ComplexNumber()
         {
-            return new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
         }
 
-        /// <summary>
-        /// Conjugates the current complex number
-        /// </summary>
-        public void Conjugate()
+        public ComplexNumber(double realPart, double imagPart)
         {
-            ImaginaryPart *= -1.0;
+            _realPart = realPart;
+            _imaginaryPart = imagPart;
+
+            SetMagnitude();
+            SetPhase();
         }
 
-        //Addition Operator Override
-        public static ComplexNumber operator +(ComplexNumber num1, ComplexNumber num2)
-        {
-            double realSum = num1.RealPart + num2.RealPart;
-            double imagSum = num1.ImaginaryPart + num2.ImaginaryPart;
-            return new ComplexNumber(realSum, imagSum);
-        }
+        #endregion Public Constructors
 
-        public static ComplexNumber operator +(double n, ComplexNumber c)
-        {
-            double realSum = n + c.RealPart;
-            double imagSum = c.ImaginaryPart;
-            return new ComplexNumber(realSum, imagSum);
-        }
-
-        public static ComplexNumber operator +(ComplexNumber c, double n)
-        {
-            double realSum = c.RealPart + n;
-            double imagSum = c.ImaginaryPart;
-            return new ComplexNumber(realSum, imagSum);
-        }
-
-        public static ComplexNumber operator +(int n, ComplexNumber c)
-        {
-            double realSum = n + c.RealPart;
-            double imagSum = c.ImaginaryPart;
-            return new ComplexNumber(realSum, imagSum);
-        }
-
-        public static ComplexNumber operator +(ComplexNumber c, int n)
-        {
-            double realSum = c.RealPart + n;
-            double imagSum = c.ImaginaryPart;
-            return new ComplexNumber(realSum, imagSum);
-        }
+        #region Public Methods
 
         //Subtraction Operator Overrride
         public static ComplexNumber operator -(ComplexNumber num1, ComplexNumber num2)
@@ -179,6 +105,12 @@ namespace UniversityPhysics.Maths
             double realSum = c.RealPart - n;
             double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static bool operator !=(ComplexNumber a, ComplexNumber b)
+        {
+            return !MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
+                   || !MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
         }
 
         //Multiplication Operator Override
@@ -239,16 +171,54 @@ namespace UniversityPhysics.Maths
             return new ComplexNumber(n, 0) / c;
         }
 
+        //Addition Operator Override
+        public static ComplexNumber operator +(ComplexNumber num1, ComplexNumber num2)
+        {
+            double realSum = num1.RealPart + num2.RealPart;
+            double imagSum = num1.ImaginaryPart + num2.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator +(double n, ComplexNumber c)
+        {
+            double realSum = n + c.RealPart;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator +(ComplexNumber c, double n)
+        {
+            double realSum = c.RealPart + n;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator +(int n, ComplexNumber c)
+        {
+            double realSum = n + c.RealPart;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
+        public static ComplexNumber operator +(ComplexNumber c, int n)
+        {
+            double realSum = c.RealPart + n;
+            double imagSum = c.ImaginaryPart;
+            return new ComplexNumber(realSum, imagSum);
+        }
+
         public static bool operator ==(ComplexNumber a, ComplexNumber b)
         {
             return MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
                    && MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
         }
 
-        public static bool operator !=(ComplexNumber a, ComplexNumber b)
+        /// <summary>
+        /// Conjugates the current complex number
+        /// </summary>
+        public void Conjugate()
         {
-            return !MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
-                   || !MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
+            ImaginaryPart *= -1.0;
         }
 
         public override bool Equals(object obj)
@@ -265,15 +235,52 @@ namespace UniversityPhysics.Maths
             }
         }
 
+        /// <summary>
+        /// Returns the conjugate of this complex number
+        /// </summary>
+        /// <returns></returns>
+        public ComplexNumber GetConjugate()
+        {
+            return new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
+        }
+
         public override int GetHashCode()
         {
             return ToString().GetHashCode();
         }
 
-
         public override string ToString()
         {
             return $"{RealPart}{Sign()}{Math.Abs(ImaginaryPart)}i";
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
+        /// <summary>
+        /// Multiplies two complex numbers via the 'First, Inside, Outside, Last' method
+        /// </summary>
+        /// <param name="num1"></param>
+        /// <param name="num2"></param>
+        /// <returns></returns>
+        private static ComplexNumber Multiply(ComplexNumber num1, ComplexNumber num2)
+        {
+            double first = num1.RealPart * num2.RealPart;
+            double outside = num1.RealPart * num2.ImaginaryPart;
+            double inside = num1.ImaginaryPart * num2.RealPart;
+            double last = num1.ImaginaryPart * num2.ImaginaryPart;
+            return new ComplexNumber(first - last, outside + inside);
+        }
+
+        private void SetMagnitude()
+        {
+            Magnitude = Math.Sqrt(Math.Pow(RealPart, 2) + Math.Pow(ImaginaryPart, 2));
+        }
+
+        private void SetPhase()
+        {
+            Phase = Math.Atan2(ImaginaryPart, RealPart);
         }
 
         private string Sign()
@@ -283,5 +290,7 @@ namespace UniversityPhysics.Maths
             else
                 return "+";
         }
+
+        #endregion Private Methods
     }
 }
