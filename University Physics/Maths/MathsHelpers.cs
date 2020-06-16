@@ -9,9 +9,9 @@ namespace UniversityPhysics.Maths
         #region Private Fields
 
         /// <summary>
-        /// For value comparison. Necessary for avoiding floating point accurary errors
+        /// Percentage of allowed difference when accounting for floating point errors
         /// </summary>
-        private const double tolerance = 0.0000001;
+        public const double Tolerance = 0.5;
 
         #endregion Private Fields
 
@@ -80,7 +80,24 @@ namespace UniversityPhysics.Maths
 
         public static bool WithinTolerance(double a, double b)
         {
-            return Math.Abs(a - b) <= tolerance;
+            //basic check. 
+            if (a == b)
+                return true;
+            
+            // Convert both into positive values.
+            // This ensures the higher of the two values is always the denominator
+            // in division below, to prevents a DivideByZero exception.
+            
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+            double highest = Math.Max(a, b);
+
+            double diff = Math.Abs(a - b);
+
+            double percentOff = (diff / highest) * 100;
+
+            return percentOff < Tolerance;
         }
 
         public static double ToDegrees(double radians)
