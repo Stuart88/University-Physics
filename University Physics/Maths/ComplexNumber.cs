@@ -65,7 +65,7 @@ namespace UniversityPhysics.Maths
         /// <returns></returns>
         public ComplexNumber GetConjugate()
         {
-            return new ComplexNumber(this.RealPart, -1.0 * this.ImaginaryPart);
+            return new ComplexNumber(RealPart, -1.0 * ImaginaryPart);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace UniversityPhysics.Maths
         /// </summary>
         public void Conjugate()
         {
-            this.ImaginaryPart *= -1.0;
+            ImaginaryPart *= -1.0;
         }
 
         //Addition Operator Override
@@ -97,6 +97,7 @@ namespace UniversityPhysics.Maths
             double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
+
         public static ComplexNumber operator +(int n, ComplexNumber c)
         {
             double realSum = n + c.RealPart;
@@ -132,6 +133,7 @@ namespace UniversityPhysics.Maths
             double imagSum = c.ImaginaryPart;
             return new ComplexNumber(realSum, imagSum);
         }
+
         public static ComplexNumber operator -(int n, ComplexNumber c)
         {
             double realSum = n - c.RealPart;
@@ -149,21 +151,25 @@ namespace UniversityPhysics.Maths
         //Multiplication Operator Override
         public static ComplexNumber operator *(ComplexNumber num1, ComplexNumber num2)
         {
-            ComplexNumber product =  Multiply(num1, num2);
+            ComplexNumber product = Multiply(num1, num2);
             return product;
         }
+
         public static ComplexNumber operator *(ComplexNumber c, int n)
         {
             return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
         }
+
         public static ComplexNumber operator *(int n, ComplexNumber c)
         {
             return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
         }
+
         public static ComplexNumber operator *(ComplexNumber c, double n)
         {
             return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
         }
+
         public static ComplexNumber operator *(double n, ComplexNumber c)
         {
             return new ComplexNumber(c.RealPart * n, c.ImaginaryPart * n);
@@ -179,18 +185,22 @@ namespace UniversityPhysics.Maths
 
             return new ComplexNumber(divrealPart, divimagPart);
         }
+
         public static ComplexNumber operator /(ComplexNumber c, int n)
         {
             return new ComplexNumber(c.RealPart / n, c.ImaginaryPart / n);
         }
+
         public static ComplexNumber operator /(int n, ComplexNumber c)
         {
             return new ComplexNumber(n, 0) / c;
         }
+
         public static ComplexNumber operator /(ComplexNumber c, double n)
         {
             return new ComplexNumber(c.RealPart / n, c.ImaginaryPart / n);
         }
+
         public static ComplexNumber operator /(double n, ComplexNumber c)
         {
             return new ComplexNumber(n, 0) / c;
@@ -211,10 +221,12 @@ namespace UniversityPhysics.Maths
         public override bool Equals(object obj)
         {
             if (obj.GetType() != typeof(ComplexNumber))
+            {
                 return false;
+            }
             else
             {
-                ComplexNumber v = (obj as ComplexNumber);
+                ComplexNumber v = obj as ComplexNumber;
 
                 return this == v;
             }
@@ -222,10 +234,9 @@ namespace UniversityPhysics.Maths
 
         public override int GetHashCode()
         {
-            return this.ToString().GetHashCode();
+            return ToString().GetHashCode();
         }
 
-        
 
         public override string ToString()
         {
