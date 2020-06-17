@@ -1,5 +1,7 @@
 # University-Physics
 
+#### Disclaimer: This project is still in the very early production phase. Expect it to change dramtically in some areas. Nothing is 'official' until (or if) it moves over to NuGet.
+
 ### Click here for docs: [documentation](https://github.com/Stuart88/University-Physics/wiki)
 
 University Physics is a C# library for performing physics calculations of all kinds. The project is in its early stages, 
@@ -64,4 +66,4 @@ A new unit test class can be created if the current classes are not suitable.
 
 There are no specific code styling rules for this project, but I will probably go over any contributions and make them look a bit more like "code I would write myself", just so the style of the project remains roughly the same throughout.
 
-I also perioducally perform a big 'code cleanup' operation with ReSharper to get classes and other things arranged uniformly, so if you notice any drastic rearrangements of your work, that might be why.
+I also periodically perform a big 'code cleanup' operation with ReSharper to get classes and other things arranged uniformly, so if you notice any drastic rearrangements of your work, that might be why.
