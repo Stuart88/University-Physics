@@ -210,15 +210,7 @@ namespace UniversityPhysics.Maths
             return MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
                    && MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
         }
-
-        /// <summary>
-        /// Conjugates the current complex number
-        /// </summary>
-        public void ConjugateSelf()
-        {
-            ImaginaryPart *= -1.0;
-        }
-
+        
         public override bool Equals(object obj)
         {
             if (obj.GetType() != typeof(ComplexNumber))

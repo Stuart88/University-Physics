@@ -138,10 +138,6 @@ namespace UniversityPhysics_Tests
             ComplexNumber expected = new ComplexNumber(3, -5);
 
             Assert.AreEqual(result, expected);
-
-            A.ConjugateSelf();
-
-            Assert.AreEqual(A, expected);
         }
 
         [TestMethod]
