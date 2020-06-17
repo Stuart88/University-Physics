@@ -1,6 +1,6 @@
 # University-Physics
 
-#### Disclaimer: This project is still in the very early production phase. Expect it to change dramtically in some areas. Nothing is 'official' until (or if) it moves over to NuGet.
+#### Disclaimer: This project is still in the very early production phase. Expect it to change dramtically in some areas. Nothing is 'official' as of yet.
 
 ### Click here for docs: [documentation](https://github.com/Stuart88/University-Physics/wiki)
 
