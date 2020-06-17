@@ -153,6 +153,23 @@ namespace UniversityPhysics_Tests
             Assert.AreEqual(result, expected);
         }
 
+        [TestMethod]
+        public void TestToPower()
+        {
+            ComplexNumber test = new ComplexNumber(3, 3);
+            ComplexNumber result = test.ToPower(5);
+            ComplexNumber expected = new ComplexNumber(-972, 972);
+            Assert.AreEqual(result, expected);
+
+            ComplexNumber result2 = test.ToPower(0);
+            ComplexNumber expected2 = new ComplexNumber(1, 0);
+            Assert.AreEqual(result2, expected2);
+
+            ComplexNumber result3 = test.ToPower(-5);
+            ComplexNumber expected3 = new ComplexNumber(-1d/1944, 1d/1944);
+            Assert.IsTrue(result3 == expected3);
+        }
+
         #endregion Public Methods
     }
 }

@@ -238,6 +238,26 @@ namespace UniversityPhysics.Maths
             return ToString().GetHashCode();
         }
 
+        /// <summary>
+        /// Returns the value of this complex number raised to the given value p.
+        /// <para>Values raised to the power 0 will return (1 + 0i)</para>
+        /// </summary>
+        public ComplexNumber ToPower(double p)
+        {
+            if (p > 0)
+            {
+                return this.ToPositivePower(p);
+            }
+            else if (p == 0)
+            {
+                return new ComplexNumber(1, 0);
+            }
+            else // p < 0
+            {
+                return 1d / this.ToPositivePower(Math.Abs(p));
+            }
+        }
+
         public override string ToString()
         {
             return $"{RealPart}{Sign()}{Math.Abs(ImaginaryPart)}i";
@@ -278,6 +298,18 @@ namespace UniversityPhysics.Maths
                 return "-";
             else
                 return "+";
+        }
+
+        private ComplexNumber ToPositivePower(double p)
+        {
+            ComplexNumber _this = this;
+
+            for (int i = 1; i < p; i++)
+            {
+                _this *= this;
+            }
+
+            return _this;
         }
 
         #endregion Private Methods
