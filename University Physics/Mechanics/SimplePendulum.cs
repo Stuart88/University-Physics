@@ -4,26 +4,6 @@ namespace UniversityPhysics.Mechanics
 {
     public class SimplePendulum
     {
-        #region Public Constructors
-
-        /// <summary>
-        /// Simple Pendulum constructor
-        /// </summary>
-        /// <param name="stringLength">Length of pendulum string</param>
-        /// <param name="mass">Mass of pendulum bob in kg</param>
-        /// <param name="swingAngleRadians">Swing angle in radians. Should be less than pi/6 (for small angle approximationvalidity)</param>
-        public SimplePendulum(double stringLength, double mass, double swingAngleRadians)
-        {
-            if (swingAngleRadians > Math.PI / 6)
-                throw new Exception("Swing angle too large!");
-
-            StringLength = stringLength;
-            Mass = mass;
-            SwingAngle = swingAngleRadians;
-        }
-
-        #endregion Public Constructors
-
         #region Public Properties
 
         /// <summary>
@@ -49,8 +29,29 @@ namespace UniversityPhysics.Mechanics
         /// <summary>
         /// Angle in radians
         /// </summary>
-        public double SwingAngle { get; }
+        public double StartAngle { get; set; }
 
         #endregion Public Properties
+
+        #region Public Constructors
+
+        /// <summary>
+        /// Simple Pendulum constructor
+        /// </summary>
+        /// <param name="stringLength">Length of pendulum string</param>
+        /// <param name="mass">Mass of pendulum bob in kg</param>
+        /// <param name="swingAngleRadians">Swing angle in radians. Should be less than pi/6 (for small angle approximationvalidity)</param>
+        public SimplePendulum(double stringLength, double mass, double swingAngleRadians)
+        {
+            if (swingAngleRadians > Math.PI / 6)
+                throw new Exception("Swing angle too large!");
+
+            StringLength = stringLength;
+            Mass = mass;
+            StartAngle = swingAngleRadians;
+        }
+
+        #endregion Public Constructors
+
     }
 }
