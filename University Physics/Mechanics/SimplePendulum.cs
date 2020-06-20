@@ -1,4 +1,5 @@
 ﻿using System;
+using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.Mechanics
 {
@@ -17,6 +18,7 @@ namespace UniversityPhysics.Mechanics
         public double Frequency => 1d / Period;
 
         public double LocalGravity { get; set; } = UnitsAndConstants.Constants.Common.StandardGravity;
+
         public double Mass { get; set; }
 
         /// <summary>
@@ -53,5 +55,21 @@ namespace UniversityPhysics.Mechanics
 
         #endregion Public Constructors
 
+        #region Public Methods
+
+        /// <summary>
+        /// Returns the angle θ of the pendulum after t seconds has elapsed
+        /// <para>
+        /// Uses θ = θ_0 cos(wt), where θ_0 = Pendulum.StartAngle
+        /// </para>
+        /// </summary>
+        /// <param name="tSeconds"></param>
+        /// <returns></returns>
+        public double AngleAfterTime(double tSeconds)
+        {
+            return MathsHelpers.ToDegrees(this.StartAngle * Math.Cos(this.AngularFrequency * tSeconds));
+        }
+
+        #endregion Public Methods
     }
 }
