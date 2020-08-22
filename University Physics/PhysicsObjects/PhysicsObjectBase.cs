@@ -22,11 +22,16 @@ namespace UniversityPhysics.PhysicsObjects
 
         public Vector Acceleration { get; set; } = new Vector();
 
+        /// <summary>
+        /// Angular velocity in radians per second
+        /// </summary>
+        public Vector AngularVelocity { get; set; } = new Vector();
+
         public double Charge { get; set; } = 0d;
 
         public Vector KineticEnergy_Rotational
         {
-            get { return 0.5 * new Vector(_momentOfInertia.X * Math.Pow(Rotation.X, 2), _momentOfInertia.Y * Math.Pow(Rotation.Y, 2), _momentOfInertia.Z * Math.Pow(Rotation.Z, 2)); }
+            get { return 0.5 * new Vector(_momentOfInertia.X * Math.Pow(AngularVelocity.X, 2), _momentOfInertia.Y * Math.Pow(AngularVelocity.Y, 2), _momentOfInertia.Z * Math.Pow(AngularVelocity.Z, 2)); }
         }
 
         public Vector KineticEnergy_Translational
@@ -54,7 +59,12 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         public Vector Position { get; set; } = new Vector();
+
+        /// <summary>
+        /// Amount of rotation in radians from default/start position
+        /// </summary>
         public Vector Rotation { get; set; } = new Vector();
+
         public Vector RotationalAcceleration { get; set; } = new Vector();
         public double TimeElapsed { get; set; } = 0d;
 
@@ -80,6 +90,11 @@ namespace UniversityPhysics.PhysicsObjects
         public void Accelerate(Vector acceleration, double timeDelta)
         {
             Velocity += acceleration * timeDelta;
+        }
+
+        public void AccelerateRotational(Vector acceleration, double timeDelta)
+        {
+            this.AngularVelocity += acceleration * timeDelta;
         }
 
         /// <summary>
@@ -117,7 +132,18 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="timeDelta"></param>
         public void Move(double timeDelta)
         {
+            //Move based on current info
             Position += ((Velocity + VelocityField.Result(Position)) * timeDelta + 0.5 * Acceleration * timeDelta * timeDelta);
+            Rotation += AngularVelocity * timeDelta;
+
+            //Then set velocity to what it should be after acceleration has been applied (if any)
+            Accelerate(Acceleration, timeDelta);
+            AccelerateRotational(RotationalAcceleration, timeDelta);
+        }
+
+        public Vector RotationAsDegreesPerSecond()
+        {
+            return this.Rotation * 180f / Math.PI;
         }
 
         /// <summary>
@@ -130,24 +156,24 @@ namespace UniversityPhysics.PhysicsObjects
             switch (axis)
             {
                 case Axis_Cartesian.X:
-                    if (Rotation.X == 0)
-                        throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(Rotation.X, timeMeasure);
+                    //if (Rotation.X == 0)
+                    //    throw new Exception("There is no rotation on this axis!");
+                    return RotationToPeriod(AngularVelocity.X, timeMeasure);
 
                 case Axis_Cartesian.Y:
-                    if (Rotation.Y == 0)
-                        throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(Rotation.Y, timeMeasure);
+                    //if (Rotation.Y == 0)
+                    //    throw new Exception("There is no rotation on this axis!");
+                    return RotationToPeriod(AngularVelocity.Y, timeMeasure);
 
                 case Axis_Cartesian.Z:
-                    if (Rotation.Z == 0)
-                        throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(Rotation.Z, timeMeasure);
+                    //if (Rotation.Z == 0)
+                    //    throw new Exception("There is no rotation on this axis!");
+                    return RotationToPeriod(AngularVelocity.Z, timeMeasure);
 
                 default:
-                    if (Rotation.Z == 0)
-                        throw new Exception("Object is not rotating!");
-                    return RotationToPeriod(Rotation.Z, timeMeasure);
+                    //if (Rotation.Z == 0)
+                    //    throw new Exception("Object is not rotating!");
+                    return RotationToPeriod(AngularVelocity.Z, timeMeasure);
             }
         }
 

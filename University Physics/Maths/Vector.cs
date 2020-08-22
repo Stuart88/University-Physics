@@ -3,12 +3,6 @@ using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.Maths
 {
-    public enum AngleType
-    {
-        Radians,
-        Degrees
-    }
-
     public interface IVector
     {
         #region Public Methods
@@ -26,8 +20,24 @@ namespace UniversityPhysics.Maths
         #endregion Public Methods
     }
 
+    public enum AngleType
+    {
+        Radians,
+        Degrees
+    }
+
     public class Vector : IVector
     {
+        #region Public Properties
+
+        public double X { get; set; } = 0d;
+
+        public double Y { get; set; } = 0d;
+
+        public double Z { get; set; } = 0d;
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         public Vector()
@@ -49,14 +59,6 @@ namespace UniversityPhysics.Maths
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public double X { get; set; } = 0d;
-        public double Y { get; set; } = 0d;
-        public double Z { get; set; } = 0d;
-
-        #endregion Public Properties
 
         #region Public Methods
 
@@ -237,6 +239,11 @@ namespace UniversityPhysics.Maths
         public override string ToString()
         {
             return string.Format("X: {0}, Y: {1}, Z: {2}", X, Y, Z);
+        }
+
+        public string ToString(int decimalPoints)
+        {
+            return string.Format("X: {0}, Y: {1}, Z: {2}", X.DecimalPoints(decimalPoints), Y.DecimalPoints(decimalPoints), Z.DecimalPoints(decimalPoints));
         }
 
         #endregion Public Methods

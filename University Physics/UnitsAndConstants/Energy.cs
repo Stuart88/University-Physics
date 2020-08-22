@@ -4,6 +4,18 @@ namespace UniversityPhysics.UnitsAndConstants
 {
     public class Energy
     {
+        #region Public Properties
+
+        public double ElectronVolts { get; private set; }
+
+        public double Joules { get; private set; }
+
+        public double KilowattHours { get; private set; }
+
+        public double MegaElectronVolts { get; private set; }
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         /// <summary>
@@ -17,15 +29,6 @@ namespace UniversityPhysics.UnitsAndConstants
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public double ElectronVolts { get; private set; }
-        public double Joules { get; private set; }
-        public double KilowattHours { get; private set; }
-        public double MegaElectronVolts { get; private set; }
-
-        #endregion Public Properties
 
         #region Public Methods
 

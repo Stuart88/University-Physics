@@ -8,6 +8,16 @@ namespace UniversityPhysics.Astrophysics
 {
     public class GravitationalBody : PhysicsObjectBase
     {
+        #region Public Properties
+
+        public double EscapeVelocity => Math.Sqrt(2 * Constants.Common.G * Mass / Radius);
+
+        public double GravityAtSurface => Constants.Common.G * Mass / (Radius * Radius);
+
+        public double Radius { get; set; }
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         public GravitationalBody(double radius, double mass)
@@ -17,14 +27,6 @@ namespace UniversityPhysics.Astrophysics
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public double EscapeVelocity => Math.Sqrt(2 * Constants.Common.G * Mass / Radius);
-        public double GravityAtSurface => Constants.Common.G * Mass / (Radius * Radius);
-        public double Radius { get; set; }
-
-        #endregion Public Properties
 
         #region Public Methods
 

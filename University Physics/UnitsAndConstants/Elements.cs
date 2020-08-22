@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace UniversityPhysics.UnitsAndConstants
+﻿namespace UniversityPhysics.UnitsAndConstants
 {
     public static class Elements
     {
@@ -54,6 +50,44 @@ namespace UniversityPhysics.UnitsAndConstants
 
         public class Element
         {
+            #region Public Properties
+
+            /// <summary>
+            /// Kelvin
+            /// </summary>
+            public Temperature BoilingPont { get; }
+
+            /// <summary>
+            /// kg/m^3 at 20 degrees C (standard ambient temperature)
+            /// </summary>
+            public double Density { get; }
+
+            public short Group { get; }
+
+            public short? Isotopes { get; }
+
+            public Mass Mass { get; }
+
+            /// <summary>
+            /// Kelvin
+            /// </summary>
+            public Temperature MeltingPoint { get; }
+
+            public string Name { get; }
+
+            public short Number { get; }
+
+            public short Period { get; }
+
+            //m
+            public double? Radius { get; }
+
+            public string Symbol { get; }
+
+            public short? Valence { get; }
+
+            #endregion Public Properties
+
             #region Public Constructors
 
             public Element()
@@ -94,39 +128,6 @@ namespace UniversityPhysics.UnitsAndConstants
             }
 
             #endregion Public Constructors
-
-            #region Public Properties
-
-            /// <summary>
-            /// Kelvin
-            /// </summary>
-            public Temperature BoilingPont { get; }
-
-            /// <summary>
-            /// kg/m^3 at 20 degrees C (standard ambient temperature)
-            /// </summary>
-            public double Density { get; }
-
-            public short Group { get; }
-            public short? Isotopes { get; }
-            public Mass Mass { get; }
-
-            /// <summary>
-            /// Kelvin
-            /// </summary>
-            public Temperature MeltingPoint { get; }
-
-            public string Name { get; }
-            public short Number { get; }
-            public short Period { get; }
-
-            //m
-            public double? Radius { get; }
-
-            public string Symbol { get; }
-            public short? Valence { get; }
-
-            #endregion Public Properties
         }
 
         #endregion Public Classes

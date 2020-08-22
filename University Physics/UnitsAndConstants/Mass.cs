@@ -2,6 +2,22 @@
 {
     public class Mass
     {
+        #region Public Properties
+
+        public double AMUs { get; private set; }
+
+        public double eV { get; private set; }
+
+        public double Kilograms { get; private set; }
+
+        public double MeV { get; private set; }
+
+        public double PlanckMasses { get; private set; }
+
+        public double SolarMasses { get; private set; }
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         public Mass(double m, Enums.MassMeasure massMeasure)
@@ -10,17 +26,6 @@
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public double AMUs { get; private set; }
-        public double eV { get; private set; }
-        public double Kilograms { get; private set; }
-        public double MeV { get; private set; }
-        public double PlanckMasses { get; private set; }
-        public double SolarMasses { get; private set; }
-
-        #endregion Public Properties
 
         #region Public Methods
 

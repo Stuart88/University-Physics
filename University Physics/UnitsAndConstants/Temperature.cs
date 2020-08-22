@@ -6,6 +6,16 @@ namespace UniversityPhysics.UnitsAndConstants
 {
     public class Temperature
     {
+        #region Public Properties
+
+        public double Celsius { get; private set; }
+
+        public double Fahrenheit { get; private set; }
+
+        public double Kelvin { get; private set; }
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         public Temperature(double temp, TemperatureType type)
@@ -14,14 +24,6 @@ namespace UniversityPhysics.UnitsAndConstants
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public double Celsius { get; private set; }
-        public double Fahrenheit { get; private set; }
-        public double Kelvin { get; private set; }
-
-        #endregion Public Properties
 
         #region Public Methods
 

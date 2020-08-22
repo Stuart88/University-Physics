@@ -26,12 +26,12 @@ namespace UniversityPhysics.Mechanics
         /// </summary>
         public double Period => 2 * Math.PI * Math.Sqrt(StringLength / LocalGravity);
 
-        public double StringLength { get; set; }
-
         /// <summary>
         /// Angle in radians
         /// </summary>
         public double StartAngle { get; set; }
+
+        public double StringLength { get; set; }
 
         #endregion Public Properties
 

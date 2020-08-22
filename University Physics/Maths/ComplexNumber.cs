@@ -210,7 +210,7 @@ namespace UniversityPhysics.Maths
             return MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
                    && MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
         }
-        
+
         public override bool Equals(object obj)
         {
             if (obj.GetType() != typeof(ComplexNumber))

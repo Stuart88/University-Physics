@@ -32,6 +32,14 @@ namespace UniversityPhysics.UnitsAndConstants
 
         public class BaseUnit
         {
+            #region Public Properties
+
+            public string Abbreviation { get; }
+
+            public string Name { get; }
+
+            #endregion Public Properties
+
             #region Public Constructors
 
             public BaseUnit(string name, string abbrev)
@@ -41,17 +49,22 @@ namespace UniversityPhysics.UnitsAndConstants
             }
 
             #endregion Public Constructors
-
-            #region Public Properties
-
-            public string Abbreviation { get; }
-            public string Name { get; }
-
-            #endregion Public Properties
         }
 
         public class DerivedUnit
         {
+            #region Private Properties
+
+            private string Abbreviation { get; set; }
+
+            private List<BaseUnit> DimensionsDenominator { get; set; }
+
+            private List<BaseUnit> DimensionsNumerator { get; set; }
+
+            private string Name { get; set; }
+
+            #endregion Private Properties
+
             #region Public Constructors
 
             public DerivedUnit(string name, string abbrev, List<BaseUnit> numerator, List<BaseUnit> denominator)
@@ -63,15 +76,6 @@ namespace UniversityPhysics.UnitsAndConstants
             }
 
             #endregion Public Constructors
-
-            #region Private Properties
-
-            private string Abbreviation { get; set; }
-            private List<BaseUnit> DimensionsDenominator { get; set; }
-            private List<BaseUnit> DimensionsNumerator { get; set; }
-            private string Name { get; set; }
-
-            #endregion Private Properties
 
             #region Public Methods
 

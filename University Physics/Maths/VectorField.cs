@@ -4,6 +4,12 @@ namespace UniversityPhysics.Maths
 {
     public abstract class VectorField
     {
+        #region Public Properties
+
+        public Func<Vector, Vector> Result { get; set; }
+
+        #endregion Public Properties
+
         #region Public Constructors
 
         public VectorField()
@@ -19,11 +25,5 @@ namespace UniversityPhysics.Maths
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public Func<Vector, Vector> Result { get; set; }
-
-        #endregion Public Properties
     }
 }
