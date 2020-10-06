@@ -20,6 +20,8 @@ namespace UniversityPhysics.UnitsAndConstants
             public const double Earth_Radius = 6.371E6;
             public const double Solar_Mass = 1.989E30;
             public const double Solar_Radius = 6.957E8;
+            public const double Lunar_Mass = 7.347E22;
+            public const double Lunar_Radius = 1.737E6;
 
             #endregion Public Fields
         }
