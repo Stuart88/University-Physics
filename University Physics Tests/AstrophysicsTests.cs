@@ -17,7 +17,7 @@ namespace UniversityPhysics_Tests
         {
             Vector result = MathsHelpers.DayLengthToRotation(AstrophysicalConstants.Earth_Radius, 24, TimeMeasure.Hour);
 
-            Vector expected = CommonAstroObjects.Earth.Rotation;
+            Vector expected = CommonAstroObjects.Earth.AngularVelocity;
 
             Assert.IsTrue(Helpers.WithinTolerance(result, expected));
         }
@@ -55,7 +55,7 @@ namespace UniversityPhysics_Tests
             GravitationalBody human = TestObjects.Human;
             human.Position = new Vector(AstrophysicalConstants.Earth_Radius + 1.5, 0, 0);
 
-            Vector result = earth.GravitationalForceOn(human);
+            Vector result = earth.GravitationalForceToward(human);
 
             Vector expected = new Vector(human.Mass * 9.81, 0, 0);
 

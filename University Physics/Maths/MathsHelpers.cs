@@ -135,6 +135,21 @@ namespace UniversityPhysics.Maths
             };
         }
 
+        public static double SecondsToTimeMeasure(double seconds, TimeMeasure timeMeasure, int decimalPlaces = 2)
+        {
+            switch (timeMeasure)
+            {
+                case TimeMeasure.Second: return seconds.DecimalPoints(decimalPlaces);
+                case TimeMeasure.Minute: return (seconds / UnitsAndConstants.Constants.Time.Minute_Seconds).DecimalPoints(decimalPlaces);
+                case TimeMeasure.Hour: return (seconds / UnitsAndConstants.Constants.Time.Hour_Seconds).DecimalPoints(decimalPlaces);
+                case TimeMeasure.Day: return (seconds / UnitsAndConstants.Constants.Time.Day_Seconds).DecimalPoints(decimalPlaces);
+                case TimeMeasure.Week: return (seconds / UnitsAndConstants.Constants.Time.Week_Seconds).DecimalPoints(decimalPlaces);
+                case TimeMeasure.Month: return (seconds / UnitsAndConstants.Constants.Time.Month_Seconds).DecimalPoints(decimalPlaces);
+                case TimeMeasure.Year: return (seconds / UnitsAndConstants.Constants.Time.Year_Seconds).DecimalPoints(decimalPlaces);
+                default: return (seconds * UnitsAndConstants.Constants.Time.Hour_Seconds).DecimalPoints(decimalPlaces);
+            };
+        }
+
         #endregion Private Methods
     }
 }

@@ -27,6 +27,9 @@ namespace UniversityPhysics_Tests
         [TestMethod]
         public void TestElectricForce()
         {
+
+            //NOTE: Correct order of magnitude but failing due to floating point precision
+
             PointCharge p = new PointCharge(-8.0E-9);
             PointCharge q = new PointCharge(-6.0E-9, new Vector(1.2, -1.6));
 

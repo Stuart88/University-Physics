@@ -35,18 +35,16 @@ namespace UniversityPhysics.Astrophysics
         /// </summary>
         /// <returns>Force (Vector) directed toward this body, i.e. if the other body has higher gravitational strength,
         /// the force will be negative (directed away from this body)</returns>
-        public Vector GravitationalForceOn(GravitationalBody b)
+        public Vector GravitationalForceToward(GravitationalBody b)
         {
             double distance = Math.Abs(Position.Abs() - b.Position.Abs());
 
             if (distance < Radius || distance < b.Radius)
-                throw new Exception("Bodies must not be connected!");
+                throw new OverLappingRadiusException("Bodies must not be connected!");
 
             Vector direction = b.Position - Position;
 
             double r_squared = direction.Abs() * direction.Abs();
-
-            var x = direction.Abs() * direction.Abs();
 
             return direction.Normalised() * Constants.Common.G * Mass * b.Mass / r_squared;
         }
@@ -62,6 +60,16 @@ namespace UniversityPhysics.Astrophysics
             double periodInSeconds = Math.Sqrt(Math.Pow(orbitRadius, 3) * (4 * Math.Pow(Math.PI, 2)) / (Constants.Common.G * Mass));
 
             return ToDesiredTimeMeasure(periodInSeconds, timeMeasure);
+        }
+
+        /// <summary>
+        /// Finds the potential energy via the gravitational field of the body b
+        /// </summary>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public double PotentialEnergyFrom(GravitationalBody b)
+        {
+            return -(Constants.Common.G * this.Mass * b.Mass) / this.Position.DistanceTo(b.Position);
         }
 
         #endregion Public Methods

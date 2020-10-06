@@ -53,7 +53,7 @@ namespace UniversityPhysics.PhysicsObjects
             get
             {
                 return this is Object3D
-                    ? Velocity * _object3DMass
+                    ? Velocity * ((Object3D) this).Mass
                     : Velocity * Mass;
             }
         }
@@ -103,6 +103,16 @@ namespace UniversityPhysics.PhysicsObjects
         public void AddForce_Translational(Vector force)
         {
             Acceleration += (force / Mass);
+        }
+
+        public void ClearForce_Translational()
+        {
+            Acceleration = new Vector();
+        }
+
+        public void ClearForce_Rotational()
+        {
+            RotationalAcceleration = new Vector();
         }
 
         public void ApplyElectricField(ElectricField f)

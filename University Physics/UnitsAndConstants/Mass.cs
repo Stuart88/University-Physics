@@ -58,6 +58,11 @@
             return !Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
         }
 
+        public static Mass operator *(Mass M, Mass m)
+        {
+            return M.Kilograms * m.Kilograms;
+        }
+
         public static Mass operator *(Mass M, int m)
         {
             return M.Kilograms * m;

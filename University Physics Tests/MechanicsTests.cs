@@ -298,7 +298,7 @@ namespace UniversityPhysics_Tests
 
             //moment of intertia = (0, 0, 250)
 
-            obj.Rotation = new Vector(0, 0, 10);
+            obj.AngularVelocity = new Vector(0, 0, 10);
 
             Vector result = obj.KineticEnergy_Rotational;
             // = 0.5 I ω^2
