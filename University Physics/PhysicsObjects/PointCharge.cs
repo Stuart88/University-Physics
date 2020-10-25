@@ -1,4 +1,5 @@
-﻿using UniversityPhysics.Maths;
+﻿using UniversityPhysics.Electromagnetism;
+using UniversityPhysics.Maths;
 
 namespace UniversityPhysics.PhysicsObjects
 {
@@ -18,5 +19,6 @@ namespace UniversityPhysics.PhysicsObjects
         }
 
         #endregion Public Constructors
+
     }
 }

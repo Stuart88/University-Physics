@@ -14,13 +14,67 @@ namespace UniversityPhysics.PhysicsObjects
         internal Vector _momentOfInertia = new Vector();
         internal double _object3DMass = 0d;
         internal ElectricField ElectricField = new ElectricField();
+        internal MagneticField MagneticField = new MagneticField();
         internal VelocityField VelocityField = new VelocityField();
+        private Vector _acceleration = new Vector();
+        private Vector _rotationalAcceleration = new Vector();
+        private Vector _force = new Vector();
+        private Vector _torque = new Vector();
+
 
         #endregion Internal Fields
 
         #region Public Properties
 
-        public Vector Acceleration { get; set; } = new Vector();
+        /// <summary>
+        /// WARNING! This will reset and override any other forces that have already been added to the object
+        /// </summary>
+        public Vector Acceleration
+        {
+            get => _acceleration;
+            set
+            {
+                _acceleration = value;
+                this.Force = this.Mass * _acceleration;
+            }
+        }
+
+        public Vector Force
+        {
+            get => _force;
+            internal set
+            {
+                _force = value;
+                _acceleration = _force / this.Mass;
+            }
+        }
+
+        /// <summary>
+        /// Any extra translational force applied
+        /// </summary>
+        public Vector ExternalForce { get; set; } = new Vector();
+
+        public Vector RotationalAcceleration
+        {
+            get => _rotationalAcceleration;
+            set
+            {
+                _rotationalAcceleration = value;
+                _torque = new Vector(this.MomentOfInertia.X * _rotationalAcceleration.X, this.MomentOfInertia.Y * _rotationalAcceleration.Y, this.MomentOfInertia.Z * _rotationalAcceleration.Z);
+            }
+        }
+
+        public Vector ExternalTorque { get; set; } = new Vector();
+
+        public Vector Torque
+        {
+            get => _torque;
+            private set
+            {
+                _torque = value;
+                _rotationalAcceleration = new Vector(_torque.X / this.MomentOfInertia.X, _torque.Y / this.MomentOfInertia.Y, _torque.Z / this.MomentOfInertia.Z);
+            }
+        }
 
         /// <summary>
         /// Angular velocity in radians per second
@@ -29,15 +83,9 @@ namespace UniversityPhysics.PhysicsObjects
 
         public double Charge { get; set; } = 0d;
 
-        public Vector KineticEnergy_Rotational
-        {
-            get { return 0.5 * new Vector(_momentOfInertia.X * Math.Pow(AngularVelocity.X, 2), _momentOfInertia.Y * Math.Pow(AngularVelocity.Y, 2), _momentOfInertia.Z * Math.Pow(AngularVelocity.Z, 2)); }
-        }
+        public Vector KineticEnergy_Rotational => 0.5 * new Vector(_momentOfInertia.X * Math.Pow(this.AngularVelocity.X, 2), _momentOfInertia.Y * Math.Pow(this.AngularVelocity.Y, 2), _momentOfInertia.Z * Math.Pow(this.AngularVelocity.Z, 2));
 
-        public Vector KineticEnergy_Translational
-        {
-            get { return 0.5 * Mass * new Vector(Velocity.X * Velocity.X, Velocity.Y * Velocity.Y, Velocity.Z * Velocity.Z); }
-        }
+        public Vector KineticEnergy_Translational => 0.5 * this.Mass * new Vector(this.Velocity.X * this.Velocity.X, this.Velocity.Y * this.Velocity.Y, this.Velocity.Z * this.Velocity.Z);
 
         public double LifeTime { get; set; } = 0d;
 
@@ -46,17 +94,12 @@ namespace UniversityPhysics.PhysicsObjects
         /// </summary>
         public Mass Mass { get; set; } = 0d;
 
-        public Vector MomentOfInertia { get { return _momentOfInertia; } }
+        public Vector MomentOfInertia => _momentOfInertia;
 
-        public Vector Momentum
-        {
-            get
-            {
-                return this is Object3D
-                    ? Velocity * ((Object3D) this).Mass
-                    : Velocity * Mass;
-            }
-        }
+        public Vector Momentum =>
+            this is Object3D
+                ? this.Velocity * ((Object3D) this).Mass
+                : this.Velocity * this.Mass;
 
         public Vector Position { get; set; } = new Vector();
 
@@ -64,17 +107,9 @@ namespace UniversityPhysics.PhysicsObjects
         /// Amount of rotation in radians from default/start position
         /// </summary>
         public Vector Rotation { get; set; } = new Vector();
-
-        public Vector RotationalAcceleration { get; set; } = new Vector();
         public double TimeElapsed { get; set; } = 0d;
 
-        public double TotalEnergy
-        {
-            get
-            {
-                return KineticEnergy_Translational.Abs() + KineticEnergy_Rotational.Abs();
-            }
-        }
+        public double TotalEnergy => this.KineticEnergy_Translational.Abs() + this.KineticEnergy_Rotational.Abs();
 
         public Vector Velocity { get; set; } = new Vector();
 
@@ -89,7 +124,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="timeDelta"></param>
         public void Accelerate(Vector acceleration, double timeDelta)
         {
-            Velocity += acceleration * timeDelta;
+            this.Velocity += acceleration * timeDelta;
         }
 
         public void AccelerateRotational(Vector acceleration, double timeDelta)
@@ -97,28 +132,14 @@ namespace UniversityPhysics.PhysicsObjects
             this.AngularVelocity += acceleration * timeDelta;
         }
 
-        /// <summary>
-        /// Adds an extra force to the object. (Updates Acceleration property via F=ma ).
-        /// </summary>
-        public void AddForce_Translational(Vector force)
-        {
-            Acceleration += (force / Mass);
-        }
-
-        public void ClearForce_Translational()
-        {
-            Acceleration = new Vector();
-        }
-
-        public void ClearForce_Rotational()
-        {
-            RotationalAcceleration = new Vector();
-        }
-
         public void ApplyElectricField(ElectricField f)
         {
-            //AddForce_Translational(f.Result(Position) * Charge);
             ElectricField = f;
+        }
+
+        public void ApplyMagneticField(MagneticField b)
+        {
+            MagneticField = b;
         }
 
         public void ApplyVelocityField(VelocityField f)
@@ -136,19 +157,35 @@ namespace UniversityPhysics.PhysicsObjects
             VelocityField = new VelocityField();
         }
 
+        public void ClearMagneticField()
+        {
+            MagneticField = new MagneticField();
+        }
+
         /// <summary>
         /// Updates Position, uses s = ut + 1/2 at^2. Any active velocity field will also be effected here.
         /// </summary>
         /// <param name="timeDelta"></param>
         public void Move(double timeDelta)
         {
+            var eForce = ElectricField.Result(this.Position);
+            var bForce = MagneticField.Result(this.Position);
+            this.Force = eForce + bForce + this.ExternalForce;
+            this.Torque = this.ExternalTorque;// + any other types of possible torque?
+
+            if (Math.Abs(this.Velocity.Y) > 0)
+            {
+
+            }
+
             //Move based on current info
-            Position += ((Velocity + VelocityField.Result(Position)) * timeDelta + 0.5 * Acceleration * timeDelta * timeDelta);
-            Rotation += AngularVelocity * timeDelta;
+            this.Position += ((this.Velocity + VelocityField.Result(this.Position)) * timeDelta + 0.5 * this.Acceleration * timeDelta * timeDelta);
+            this.Rotation += this.AngularVelocity * timeDelta;
 
             //Then set velocity to what it should be after acceleration has been applied (if any)
-            Accelerate(Acceleration, timeDelta);
-            AccelerateRotational(RotationalAcceleration, timeDelta);
+            Accelerate(this.Acceleration, timeDelta);
+            AccelerateRotational(this.RotationalAcceleration, timeDelta);
+
         }
 
         public Vector RotationAsDegreesPerSecond()
@@ -168,22 +205,22 @@ namespace UniversityPhysics.PhysicsObjects
                 case Axis_Cartesian.X:
                     //if (Rotation.X == 0)
                     //    throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(AngularVelocity.X, timeMeasure);
+                    return RotationToPeriod(this.AngularVelocity.X, timeMeasure);
 
                 case Axis_Cartesian.Y:
                     //if (Rotation.Y == 0)
                     //    throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(AngularVelocity.Y, timeMeasure);
+                    return RotationToPeriod(this.AngularVelocity.Y, timeMeasure);
 
                 case Axis_Cartesian.Z:
                     //if (Rotation.Z == 0)
                     //    throw new Exception("There is no rotation on this axis!");
-                    return RotationToPeriod(AngularVelocity.Z, timeMeasure);
+                    return RotationToPeriod(this.AngularVelocity.Z, timeMeasure);
 
                 default:
                     //if (Rotation.Z == 0)
                     //    throw new Exception("Object is not rotating!");
-                    return RotationToPeriod(AngularVelocity.Z, timeMeasure);
+                    return RotationToPeriod(this.AngularVelocity.Z, timeMeasure);
             }
         }
 
@@ -193,14 +230,14 @@ namespace UniversityPhysics.PhysicsObjects
         {
             string[] properties = new string[]
             {
-                string.Format("{0} ---------- {1} ( kg )",  "Mass", Mass),
-                string.Format("{0} ---------- {1}",  "Position", Position),
-                string.Format("{0} ---------- {1} ( m/s )",  "Velocity", Velocity),
-                string.Format("{0} ---------- {1} ( kg m/s )",  "Momentum", Momentum),
-                string.Format("{0} ---------- {1} ( m/s^2 )",  "Acceleration", Acceleration),
-                string.Format("{0} ---------- {1} ( As )",  "Charge", Charge),
-                string.Format("{0} ---------- {1} ( J )",  "Kinetic Energy", KineticEnergy_Translational),
-                string.Format("{0} ---------- {1} ( J )",  "Total Kinetic Energy", TotalEnergy),
+                string.Format("{0} ---------- {1} ( kg )",  "Mass", this.Mass),
+                string.Format("{0} ---------- {1}",  "Position", this.Position),
+                string.Format("{0} ---------- {1} ( m/s )",  "Velocity", this.Velocity),
+                string.Format("{0} ---------- {1} ( kg m/s )",  "Momentum", this.Momentum),
+                string.Format("{0} ---------- {1} ( m/s^2 )",  "Acceleration", this.Acceleration),
+                string.Format("{0} ---------- {1} ( As )",  "Charge", this.Charge),
+                string.Format("{0} ---------- {1} ( J )",  "Kinetic Energy", this.KineticEnergy_Translational),
+                string.Format("{0} ---------- {1} ( J )",  "Total Kinetic Energy", this.TotalEnergy),
             };
 
             return string.Join("\n", properties);
