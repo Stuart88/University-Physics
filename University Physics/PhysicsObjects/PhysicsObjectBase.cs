@@ -27,15 +27,17 @@ namespace UniversityPhysics.PhysicsObjects
         #region Public Properties
 
         /// <summary>
-        /// WARNING! This will reset and override any other forces that have already been added to the object
+        /// Note: You cannot directly set acceleration because it is altered by multiple possible external factors.
+        /// Instead, set the External Force property, as this will result in acceleration on the object. Note that this object's acceleration will also be affected by
+        /// any electric or magnetic fields it is placed in, if it has charge.
         /// </summary>
         public Vector Acceleration
         {
             get => _acceleration;
-            set
+            private set
             {
                 _acceleration = value;
-                this.Force = this.Mass * _acceleration;
+                this.ExternalForce = this.Mass * _acceleration;
             }
         }
 
