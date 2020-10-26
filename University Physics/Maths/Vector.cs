@@ -166,6 +166,9 @@ namespace UniversityPhysics.Maths
 
         public static Vector operator /(Vector a, Mass m)
         {
+            if (m == 0)
+                throw new DivideByZeroException();
+
             return a / m.Kilograms;
         }
 
