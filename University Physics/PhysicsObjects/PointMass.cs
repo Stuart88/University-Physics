@@ -1,4 +1,5 @@
 ﻿using UniversityPhysics.Maths;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.PhysicsObjects
 {
@@ -9,7 +10,7 @@ namespace UniversityPhysics.PhysicsObjects
     {
         #region Public Fields
 
-        public double Mass;
+        public Mass Mass;
 
         /// <summary>
         /// Position in 3D space
@@ -20,7 +21,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         #region Public Constructors
 
-        public PointMass(Vector position, double mass)
+        public PointMass(Vector position, Mass mass)
         {
             Position = position;
             Mass = mass;

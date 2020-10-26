@@ -89,10 +89,19 @@ namespace UniversityPhysics.PhysicsObjects
 
         public double LifeTime { get; set; } = 0d;
 
+        private Mass _mass = 0d;
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
-        public Mass Mass { get; set; } = 0d;
+        public Mass Mass
+        {
+            get =>
+                this is Object3D
+                    ? ((Object3D)this).Mass
+                    : this._mass;
+
+            set => this._mass = value;
+        }
 
         public Vector MomentOfInertia => _momentOfInertia;
 

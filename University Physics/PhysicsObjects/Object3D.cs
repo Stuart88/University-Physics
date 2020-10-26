@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniversityPhysics.Maths;
 using UniversityPhysics.Mechanics;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.PhysicsObjects
 {
@@ -20,7 +21,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         public Vector CentreOfGravity { get; private set; } = new Vector();
 
-        public new double Mass
+        public new Mass Mass
         {
             get { return MassPoints.Sum(p => p.Mass); }
         }

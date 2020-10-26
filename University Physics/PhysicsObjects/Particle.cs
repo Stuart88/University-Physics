@@ -1,5 +1,6 @@
 ﻿using System;
 using UniversityPhysics.Maths;
+using UniversityPhysics.UnitsAndConstants;
 
 namespace UniversityPhysics.PhysicsObjects
 {
@@ -7,7 +8,7 @@ namespace UniversityPhysics.PhysicsObjects
     {
         #region Public Constructors
 
-        public Particle(double mass) : base()
+        public Particle(Mass mass) : base()
         {
             if (mass <= 0)
                 throw new Exception("This object cannot be massless!");
@@ -15,7 +16,7 @@ namespace UniversityPhysics.PhysicsObjects
             Mass = mass;
         }
 
-        public Particle(double mass, Vector position) : base()
+        public Particle(Mass mass, Vector position) : base()
         {
             if (mass <= 0)
                 throw new Exception("This object cannot be massless!");
