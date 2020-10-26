@@ -32,29 +32,6 @@ namespace UniversityPhysics_Tests
         }
 
         [TestMethod]
-        public void TestAddForce()
-        {
-            Particle test = new Particle(mass: 10)
-            {
-                Acceleration = new Vector(1, 1, 1)
-            };
-
-            test.AddForce_Translational(new Vector(5, 5, 5));
-
-            // F = ma
-            // a = m/F
-            //   = 5/10
-            //   = 0.5
-
-            // original acceleration + new force = 1 + 0.5 = 1.5
-
-            Vector result = test.Acceleration;
-            Vector expected = new Vector(1.5, 1.5, 1.5);
-
-            Assert.AreEqual(expected, result);
-        }
-
-        [TestMethod]
         public void TestCentreOfGravity()
         {
             Particle[] P_Array = new Particle[]
@@ -129,9 +106,8 @@ namespace UniversityPhysics_Tests
             Particle test = new Particle(mass: 1)
             {
                 Velocity = startVel,
-                Acceleration = acceleration
             };
-
+            test.ExternalForce = test.Mass * acceleration;
             test.Move(5);
 
             //s = ut + 1/2 at^2
@@ -382,7 +358,6 @@ namespace UniversityPhysics_Tests
         {
             Particle p = new Particle(mass: 12)
             {
-                Acceleration = new Vector(1, 2, 3),
                 Velocity = new Vector(0, 0, 4),
                 Charge = -3,
             };
