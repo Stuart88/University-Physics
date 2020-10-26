@@ -34,11 +34,6 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector Acceleration
         {
             get => _acceleration;
-            private set
-            {
-                _acceleration = value;
-                this.ExternalForce = this.Mass * _acceleration;
-            }
         }
 
         public Vector Force
@@ -56,14 +51,13 @@ namespace UniversityPhysics.PhysicsObjects
         /// </summary>
         public Vector ExternalForce { get; set; } = new Vector();
 
+        /// <summary>
+        /// Note: You cannot directly set acceleration because it is altered by multiple possible external factors.
+        /// Instead, set the ExternalTorque property (τ = Iα)
+        /// </summary>
         public Vector RotationalAcceleration
         {
             get => _rotationalAcceleration;
-            set
-            {
-                _rotationalAcceleration = value;
-                _torque = new Vector(this.MomentOfInertia.X * _rotationalAcceleration.X, this.MomentOfInertia.Y * _rotationalAcceleration.Y, this.MomentOfInertia.Z * _rotationalAcceleration.Z);
-            }
         }
 
         public Vector ExternalTorque { get; set; } = new Vector();

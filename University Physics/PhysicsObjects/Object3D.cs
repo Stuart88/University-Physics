@@ -157,7 +157,7 @@ namespace UniversityPhysics.PhysicsObjects
             double aY = torque.Y != 0 ? torque.Y / MomentOfInertia.Y : 0;
             double aZ = torque.Z != 0 ? torque.Z / MomentOfInertia.Z : 0;
 
-            RotationalAcceleration += new Vector(aX, aY, aZ);
+            this.ExternalTorque += new Vector(this.MomentOfInertia.X * aX, this.MomentOfInertia.Y * aY, this.MomentOfInertia.Z * aZ); ;
         }
 
         /// <summary>
