@@ -27,9 +27,9 @@ namespace UniversityPhysics.PhysicsObjects
 
         public List<PointMass> MassPoints { get; set; }
 
-        new public Vector Position
+        public new Vector Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
                 Vector diff = new Vector();
