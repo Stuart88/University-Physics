@@ -104,7 +104,7 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector Momentum =>
             this is Object3D
                 ? this.Velocity * ((Object3D) this).Mass
-                : this.Velocity * this.Mass;
+                : this.Velocity * this.Mass;    
 
         public Vector Position { get; set; } = new Vector();
 
