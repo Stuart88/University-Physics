@@ -69,7 +69,7 @@ namespace UniversityPhysics.FluidDynamics
 
         private static Vector ShearFlow_Func(Vector pos)
         {
-            return new Vector(FlowStrength * (pos.Y - FieldDimensions.Y), 0);
+            return new Vector(-FlowStrength * (pos.Y - FieldDimensions.Y), 0);
         }
 
         private static Vector SphereFlow_Func(Vector pos)
