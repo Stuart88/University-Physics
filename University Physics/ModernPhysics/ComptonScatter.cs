@@ -46,7 +46,7 @@ namespace UniversityPhysics.ModernPhysics
             double electronKE = E0 - E1;
             double electronV = Math.Sqrt(2 * electronKE / Constants.Common.M_e);
             double vx = electronV * Math.Cos(electronAngle);
-            double vy = electronV * Math.Sin(electronAngle);
+            double vy = -electronV * Math.Sin(electronAngle);
             Vector electronVelocity = new Vector(vx, vy);
 
             Energy resultantPhotonEnergy = Constants.Common.h * Constants.Common.C / resultantPhotonWavelength;
