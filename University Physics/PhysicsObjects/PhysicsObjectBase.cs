@@ -65,10 +65,14 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector Torque
         {
             get => _torque;
-            private set
+            internal set
             {
                 _torque = value;
-                _rotationalAcceleration = new Vector(_torque.X / this.MomentOfInertia.X, _torque.Y / this.MomentOfInertia.Y, _torque.Z / this.MomentOfInertia.Z);
+                double aX = MomentOfInertia.X != 0 ? _torque.X / MomentOfInertia.X : 0;
+                double aY = MomentOfInertia.Y != 0 ? _torque.Y / MomentOfInertia.Y : 0;
+                double aZ = MomentOfInertia.Z != 0 ? _torque.Z / MomentOfInertia.Z : 0;
+
+                _rotationalAcceleration = new Vector(aX, aY,aZ);
             }
         }
 

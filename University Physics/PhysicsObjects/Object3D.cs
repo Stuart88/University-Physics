@@ -153,11 +153,7 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="torque">Torque (vector) in Newton metres, applied about X, Y and Z axes</param>
         public void AddTorque(Vector torque)
         {
-            double aX = torque.X != 0 ? torque.X / MomentOfInertia.X : 0;
-            double aY = torque.Y != 0 ? torque.Y / MomentOfInertia.Y : 0;
-            double aZ = torque.Z != 0 ? torque.Z / MomentOfInertia.Z : 0;
-
-            this.ExternalTorque += new Vector(this.MomentOfInertia.X * aX, this.MomentOfInertia.Y * aY, this.MomentOfInertia.Z * aZ); ;
+            this.Torque += torque;
         }
 
         /// <summary>
@@ -166,9 +162,9 @@ namespace UniversityPhysics.PhysicsObjects
         /// <param name="torque">Torque (vector) in Newton metres, applied about X, Y and Z axes</param>
         public void AddTorqueDelta(Vector torque, float timeDelta)
         {
-            double aX = torque.X != 0 ? torque.X / MomentOfInertia.X : 0;
-            double aY = torque.Y != 0 ? torque.Y / MomentOfInertia.Y : 0;
-            double aZ = torque.Z != 0 ? torque.Z / MomentOfInertia.Z : 0;
+            double aX = MomentOfInertia.X != 0 ? torque.X / MomentOfInertia.X : 0;
+            double aY = MomentOfInertia.Y != 0 ? torque.Y / MomentOfInertia.Y : 0;
+            double aZ = MomentOfInertia.Z != 0 ? torque.Z / MomentOfInertia.Z : 0;
 
             AccelerateRotational(new Vector(aX, aY, aZ), timeDelta);
         }
