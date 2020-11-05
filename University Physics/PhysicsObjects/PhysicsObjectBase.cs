@@ -182,11 +182,6 @@ namespace UniversityPhysics.PhysicsObjects
             this.Force = eForce + bForce + this.ExternalForce;
             this.Torque = this.ExternalTorque;// + any other types of possible torque?
 
-            if (Math.Abs(this.Velocity.Y) > 0)
-            {
-
-            }
-
             //Move based on current info
             this.Position += ((this.Velocity + VelocityField.Result(this.Position)) * timeDelta + 0.5 * this.Acceleration * timeDelta * timeDelta);
             this.Rotation += this.AngularVelocity * timeDelta;
@@ -194,6 +189,7 @@ namespace UniversityPhysics.PhysicsObjects
             //Then set velocity to what it should be after acceleration has been applied (if any)
             Accelerate(this.Acceleration, timeDelta);
             AccelerateRotational(this.RotationalAcceleration, timeDelta);
+
 
         }
 
