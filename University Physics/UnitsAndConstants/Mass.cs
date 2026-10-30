@@ -140,12 +140,12 @@
 
         public override bool Equals(object obj)
         {
-            return obj == this;
+            return obj is Mass m && Kilograms == m.Kilograms;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Kilograms.GetHashCode();
         }
 
         public void SetMass(double m, Enums.MassMeasure massMeasure)
