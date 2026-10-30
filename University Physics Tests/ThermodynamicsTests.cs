@@ -13,7 +13,7 @@ namespace UniversityPhysics_Tests
         {
             Temperature A = 45d;
 
-            Assert.AreEqual(A.Kelvin, 45);
+            Assert.AreEqual(45, A.Kelvin);
         }
 
         [TestMethod]

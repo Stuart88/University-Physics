@@ -6,15 +6,6 @@ namespace UniversityPhysics.Maths
 {
     public static class MathsHelpers
     {
-        #region Public Fields
-
-        /// <summary>
-        /// Percentage of allowed difference when accounting for floating point errors
-        /// </summary>
-        public const double Tolerance = 0.5;
-
-        #endregion Public Fields
-
         #region Public Methods
 
         /// <summary>
@@ -86,27 +77,6 @@ namespace UniversityPhysics.Maths
         public static double ToRadians(double degrees)
         {
             return Math.PI * degrees / 180d;
-        }
-
-        /// <summary>
-        /// Compares two double values and returns true if they are within 0.5% of each other
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool WithinTolerance(double a, double b)
-        {
-            //basic check.
-            if (a == b)
-                return true;
-
-            double diff = Math.Abs(a - b);
-
-            double highest = Math.Max(Math.Abs(a), Math.Abs(b));
-
-            double percentOff = (diff / highest) * 100;
-
-            return percentOff < Tolerance;
         }
 
         #endregion Public Methods
