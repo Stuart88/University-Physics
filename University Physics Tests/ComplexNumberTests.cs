@@ -154,7 +154,7 @@ namespace UniversityPhysics_Tests
         {
             ComplexNumber test = new ComplexNumber(3, 3);
             ComplexNumber result = test.ToPower(5);
-            ComplexNumber expected = new ComplexNumber(-972, 972);
+            ComplexNumber expected = new ComplexNumber(-972, -972);
             Assert.AreEqual(result, expected);
 
             ComplexNumber result2 = test.ToPower(0);

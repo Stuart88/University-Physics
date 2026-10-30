@@ -100,16 +100,9 @@ namespace UniversityPhysics.Maths
             if (a == b)
                 return true;
 
-            // Convert both into positive values.
-            // This ensures the higher of the two values is always the denominator
-            // in division below, to prevents a DivideByZero exception.
-
-            a = Math.Abs(a);
-            b = Math.Abs(b);
-
             double diff = Math.Abs(a - b);
 
-            double highest = Math.Max(a, b);
+            double highest = Math.Max(Math.Abs(a), Math.Abs(b));
 
             double percentOff = (diff / highest) * 100;
 
