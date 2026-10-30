@@ -107,8 +107,7 @@ namespace UniversityPhysics.Maths
 
         public static bool operator !=(ComplexNumber a, ComplexNumber b)
         {
-            return !MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
-                   || !MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
+            return a.RealPart != b.RealPart || a.ImaginaryPart != b.ImaginaryPart;
         }
 
         //Multiplication Operator Override
@@ -141,10 +140,9 @@ namespace UniversityPhysics.Maths
         //Division Operator Override
         public static ComplexNumber operator /(ComplexNumber cnum1, ComplexNumber cnum2)
         {
-            double divMagnitude = cnum1.Magnitude / cnum2.Magnitude;
-            double divAngle = cnum1.Phase - cnum2.Phase;
-            double divrealPart = divMagnitude * Math.Cos(divAngle);
-            double divimagPart = divMagnitude * Math.Sin(divAngle);
+            double denom = cnum2.RealPart * cnum2.RealPart + cnum2.ImaginaryPart * cnum2.ImaginaryPart;
+            double divrealPart = (cnum1.RealPart * cnum2.RealPart + cnum1.ImaginaryPart * cnum2.ImaginaryPart) / denom;
+            double divimagPart = (cnum1.ImaginaryPart * cnum2.RealPart - cnum1.RealPart * cnum2.ImaginaryPart) / denom;
 
             return new ComplexNumber(divrealPart, divimagPart);
         }
@@ -207,8 +205,7 @@ namespace UniversityPhysics.Maths
 
         public static bool operator ==(ComplexNumber a, ComplexNumber b)
         {
-            return MathsHelpers.WithinTolerance(a.RealPart, b.RealPart)
-                   && MathsHelpers.WithinTolerance(a.ImaginaryPart, b.ImaginaryPart);
+            return a.RealPart == b.RealPart && a.ImaginaryPart == b.ImaginaryPart;
         }
 
         public override bool Equals(object obj)

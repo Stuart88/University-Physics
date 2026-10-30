@@ -84,9 +84,7 @@ namespace UniversityPhysics.Maths
 
         public static bool operator !=(Vector a, Vector b)
         {
-            return !MathsHelpers.WithinTolerance(a.X, b.X)
-                || !MathsHelpers.WithinTolerance(a.Y, b.Y)
-                || !MathsHelpers.WithinTolerance(a.Z, b.Z);
+            return a.X != b.X || a.Y != b.Y || a.Z != b.Z;
         }
 
         /// <summary>
@@ -180,9 +178,7 @@ namespace UniversityPhysics.Maths
         //Operators
         public static bool operator ==(Vector a, Vector b)
         {
-            return MathsHelpers.WithinTolerance(a.X, b.X)
-                && MathsHelpers.WithinTolerance(a.Y, b.Y)
-                && MathsHelpers.WithinTolerance(a.Z, b.Z);
+            return a.X == b.X && a.Y == b.Y && a.Z == b.Z;
         }
 
         public double Abs()

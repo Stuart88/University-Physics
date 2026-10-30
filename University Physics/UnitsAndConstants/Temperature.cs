@@ -43,7 +43,7 @@ namespace UniversityPhysics.UnitsAndConstants
 
         public static bool operator !=(Temperature A, Temperature B)
         {
-            return !MathsHelpers.WithinTolerance(A.Kelvin, B.Kelvin);
+            return A.Kelvin != B.Kelvin;
         }
 
         public static Temperature operator *(Temperature A, int x)
@@ -98,7 +98,7 @@ namespace UniversityPhysics.UnitsAndConstants
 
         public static bool operator ==(Temperature A, Temperature B)
         {
-            return MathsHelpers.WithinTolerance(A.Kelvin, B.Kelvin);
+            return A.Kelvin == B.Kelvin;
         }
 
         public override bool Equals(object obj)

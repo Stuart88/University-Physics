@@ -50,12 +50,12 @@
 
         public static bool operator !=(double m, Mass M)
         {
-            return !Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
+            return m != M.Kilograms;
         }
 
         public static bool operator !=(Mass M, double m)
         {
-            return !Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
+            return m != M.Kilograms;
         }
 
         public static Mass operator *(Mass M, Mass m)
@@ -130,12 +130,12 @@
 
         public static bool operator ==(double m, Mass M)
         {
-            return Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
+            return m == M.Kilograms;
         }
 
         public static bool operator ==(Mass M, double m)
         {
-            return Maths.MathsHelpers.WithinTolerance(m, M.Kilograms);
+            return m == M.Kilograms;
         }
 
         public override bool Equals(object obj)
