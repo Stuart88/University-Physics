@@ -177,7 +177,7 @@ namespace UniversityPhysics_Tests
             {
                 return A / 0;
             }
-            Assert.ThrowsException<DivideByZeroException>(dividebyzero);
+            Assert.ThrowsExactly<DivideByZeroException>(dividebyzero);
         }
 
         [TestMethod]

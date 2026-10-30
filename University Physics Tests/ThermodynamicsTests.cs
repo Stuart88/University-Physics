@@ -104,7 +104,7 @@ namespace UniversityPhysics_Tests
             {
                 A.SetTemperature(-500, UniversityPhysics.Enums.TemperatureType.Celsius);
             }
-            Assert.ThrowsException<Temperature.TemperatureException>(SetTemp);
+            Assert.ThrowsExactly<Temperature.TemperatureException>(SetTemp);
         }
 
         #endregion Public Methods
