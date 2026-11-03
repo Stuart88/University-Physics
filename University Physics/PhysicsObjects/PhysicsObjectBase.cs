@@ -108,9 +108,9 @@ namespace UniversityPhysics.PhysicsObjects
         public Vector Momentum =>
             this is Object3D
                 ? this.Velocity * ((Object3D) this).Mass
-                : this.Velocity * this.Mass;    
+                : this.Velocity * this.Mass;
 
-        public Vector Position { get; set; } = new Vector();
+        public virtual Vector Position { get; set; } = new Vector();
 
         /// <summary>
         /// Amount of rotation in radians from default/start position

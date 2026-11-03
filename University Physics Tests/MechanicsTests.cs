@@ -328,6 +328,36 @@ namespace UniversityPhysics_Tests
         }
 
         [TestMethod]
+        public void TestObject3D_Move_UpdatesMassPointsAndCentreOfGravity()
+        {
+            List<PointMass> massPoints = new List<PointMass>()
+            {
+                new PointMass(new Vector(1,1,0), 1),
+                new PointMass(new Vector(0,0,0), 1),
+                new PointMass(new Vector(0,1,0), 1),
+                new PointMass(new Vector(1,0,0), 1),
+            };
+
+            //original centre of gravity at (0.5, 0.5, 0)
+
+            Object3D obj = new Object3D(massPoints, new Vector(1, 1, 0));
+
+            obj.Velocity = new Vector(-2, -2, 0);
+
+            //s = ut + 1/2 at^2, no acceleration, so moves by (-2, -2, 0)
+            obj.Move(1);
+
+            Vector expectedPosition = new Vector(-1, -1, 0);
+            Assert.AreEqual(expectedPosition, obj.Position);
+
+            Vector expectedCentreOfGravity = new Vector(-0.5, -0.5, 0);
+            Assert.AreEqual(expectedCentreOfGravity, obj.CentreOfGravity);
+
+            Vector expectedMassPointPosition = new Vector(0, 0, 0);
+            Assert.AreEqual(expectedMassPointPosition, obj.MassPoints[0].Position);
+        }
+
+        [TestMethod]
         public void TestParticle_RotationalKineticEnergy()
         {
             Particle p = new Particle(10);

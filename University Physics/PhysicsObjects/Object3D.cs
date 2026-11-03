@@ -28,7 +28,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         public List<PointMass> MassPoints { get; set; }
 
-        public new Vector Position
+        public override Vector Position
         {
             get => _position;
             set
