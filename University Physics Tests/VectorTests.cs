@@ -173,9 +173,9 @@ namespace UniversityPhysics_Tests
             expected = new Vector(100000, 100000, 0);
             Assert.IsTrue(Helpers.WithinTolerance(expected, result)); // uses tolerance check here because A/0.00001 has floating point error.
 
-            Vector dividebyzero()
+            void dividebyzero()
             {
-                return A / 0;
+                _ = A / 0;
             }
             Assert.ThrowsExactly<DivideByZeroException>(dividebyzero);
         }

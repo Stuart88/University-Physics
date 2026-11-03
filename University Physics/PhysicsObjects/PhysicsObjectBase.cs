@@ -93,22 +93,16 @@ namespace UniversityPhysics.PhysicsObjects
         /// <summary>
         /// Mass of the object. For Object 3D type, set mass via MassPoints setter.
         /// </summary>
-        public Mass Mass
+        public virtual Mass Mass
         {
-            get =>
-                this is Object3D
-                    ? ((Object3D)this).Mass
-                    : this._mass;
+            get => this._mass;
 
             set => this._mass = value;
         }
 
         public Vector MomentOfInertia => _momentOfInertia;
 
-        public Vector Momentum =>
-            this is Object3D
-                ? this.Velocity * ((Object3D) this).Mass
-                : this.Velocity * this.Mass;
+        public Vector Momentum => this.Velocity * this.Mass;
 
         public virtual Vector Position { get; set; } = new Vector();
 

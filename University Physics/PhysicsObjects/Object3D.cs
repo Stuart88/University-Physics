@@ -21,7 +21,7 @@ namespace UniversityPhysics.PhysicsObjects
 
         public Vector CentreOfGravity { get; private set; } = new Vector();
 
-        public new Mass Mass
+        public override Mass Mass
         {
             get { return MassPoints.Sum(p => p.Mass); }
         }
@@ -131,20 +131,11 @@ namespace UniversityPhysics.PhysicsObjects
 
             //if energy removed will put it into negative energy... just set angular velocity to 0.
 
-            if (this.KineticEnergy_Rotational.X + joules.X <= 0)
-                this.AngularVelocity.X = 0;
-            else
-                this.AngularVelocity.X += dx;
+            double newX = this.KineticEnergy_Rotational.X + joules.X <= 0 ? 0 : this.AngularVelocity.X + dx;
+            double newY = this.KineticEnergy_Rotational.Y + joules.Y <= 0 ? 0 : this.AngularVelocity.Y + dy;
+            double newZ = this.KineticEnergy_Rotational.Z + joules.Z <= 0 ? 0 : this.AngularVelocity.Z + dz;
 
-            if (this.KineticEnergy_Rotational.Y + joules.Y <= 0)
-                this.AngularVelocity.Y = 0;
-            else
-                this.AngularVelocity.Y += dy;
-
-            if (this.KineticEnergy_Rotational.Z + joules.Z <= 0)
-                this.AngularVelocity.Z = 0;
-            else
-                this.AngularVelocity.Z += dz;
+            this.AngularVelocity = new Vector(newX, newY, newZ);
         }
 
         /// <summary>

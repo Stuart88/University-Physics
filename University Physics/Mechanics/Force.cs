@@ -2,9 +2,11 @@
 
 namespace UniversityPhysics.Mechanics
 {
-    public class Force : Vector
+    public class Force
     {
         #region Public Properties
+
+        public Vector Value { get; set; }
 
         public Vector Direction { get; set; }
 
@@ -14,7 +16,7 @@ namespace UniversityPhysics.Mechanics
 
         public double Magnitude()
         {
-            return this.Abs();
+            return this.Value.Abs();
         }
 
         #endregion Public Methods

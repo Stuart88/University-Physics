@@ -26,7 +26,7 @@ namespace UniversityPhysics.Maths
         Degrees
     }
 
-    public class Vector : IVector
+    public struct Vector : IVector
     {
         #region Public Properties
 
@@ -211,7 +211,7 @@ namespace UniversityPhysics.Maths
                 return false;
             else
             {
-                Vector v = (obj as Vector);
+                Vector v = (Vector)obj;
 
                 return this == v;
             }
